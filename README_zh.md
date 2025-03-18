@@ -13,9 +13,28 @@ GenRep 是一个使用 Go 语言编写的命令行工具，基于 JSON 配置文
 
 ## 使用方法
 
+1. 首先，确保你已经安装了 Go 1.20 或更高版本
+
+2. 克隆项目仓库：
+
+```bash
+git clone https://github.com/genrep/ReportCraft.git
 ```
-genrep -config=path/to/config.json
+
+3. 进入项目目录并构建项目：
+
+```bash
+cd ReportCraft
+go build -o reportcraft ./cmd/reportcraft/
 ```
+
+4. 运行程序：
+
+```bash
+./reportcraft -config=path/to/config.json
+```
+
+5. 生成的报告将保存在配置文件中指定的输出路径
 
 ## 配置格式
 

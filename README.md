@@ -13,9 +13,28 @@ GenRep is a command-line tool written in Go that generates reports based on a JS
 
 ## Usage
 
+1. First, make sure you have Go 1.20 or higher installed
+
+2. Clone the repository:
+
+```bash
+git clone https://github.com/genrep/ReportCraft.git
 ```
-genrep -config=path/to/config.json
+
+3. Navigate to the project directory and build the project:
+
+```bash
+cd ReportCraft
+go build -o reportcraft ./cmd/reportcraft/
 ```
+
+4. Run the program:
+
+```bash
+./reportcraft -config=path/to/config.json
+```
+
+5. The generated report will be saved at the output path specified in the config file
 
 ## Configuration Format
 
