@@ -1,0 +1,14 @@
+{
+  "reportType": "hello-excel",
+  "outputPath": "./output/hello-world.xlsx",
+  "outputFormat": "xlsx",
+  "parameters": {
+    "title": "Hello World Report",
+    "metadata": {
+      "author": "GenRep",
+      "company": "Example Corp",
+      "department": "Research & Development"
+    }
+  },
+  "dataSources": []
+}

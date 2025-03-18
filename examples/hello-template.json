@@ -1,0 +1,12 @@
+{
+  "reportType": "template",
+  "outputPath": "./output/hello-template.txt",
+  "outputFormat": "txt",
+  "parameters": {
+    "template_path": "./examples/hello.tmpl",
+    "title": "Hello Template Report",
+    "author": "GenRep",
+    "date": "2025-03-05"
+  },
+  "dataSources": []
+}

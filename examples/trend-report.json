@@ -1,0 +1,24 @@
+{
+  "reportType": "trend",
+  "outputPath": "./output/trend-analysis.docx",
+  "outputFormat": "docx",
+  "parameters": {
+    "trendDataSource": "data1",
+    "trendQuery": "Sheet1",
+    "metadata": {
+      "equipment": "设备002",
+      "location": "位置B",
+      "operator": "操作员Y",
+      "timestamp": "2025-03-05T11:00:00Z"
+    }
+  },
+  "dataSources": [
+    {
+      "id": "data1",
+      "type": "file",
+      "config": {
+        "path": "./doc/demo/点检数据-20250213150019.xlsx"
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "reportType": "waveform",
+  "outputPath": "./output/waveform-analysis.docx",
+  "outputFormat": "docx",
+  "parameters": {
+    "waveformDataSource": "data1",
+    "waveformQuery": "Sheet1",
+    "metadata": {
+      "equipment": "设备001",
+      "location": "位置A",
+      "operator": "操作员X",
+      "timestamp": "2025-03-05T10:00:00Z"
+    }
+  },
+  "dataSources": [
+    {
+      "id": "data1",
+      "type": "file",
+      "config": {
+        "path": "./doc/demo/波形频谱数据20250213151036.xls"
+      }
+    }
+  ]
+}
