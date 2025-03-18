@@ -2,15 +2,6 @@ package core
 
 import "context"
 
-// Config represents the main configuration structure for the report generation
-type Config struct {
-	ReportType   string                   `json:"reportType"`
-	OutputPath   string                   `json:"outputPath"`
-	OutputFormat string                   `json:"outputFormat"`
-	Parameters   map[string]interface{}   `json:"parameters"`
-	DataSources  []DataSourceConfig       `json:"dataSources"`
-}
-
 // DataSourceConfig represents the configuration for a data source
 type DataSourceConfig struct {
 	ID     string                 `json:"id"`
@@ -28,6 +19,9 @@ type DataSource interface {
 	
 	// Close cleans up any resources used by the data source
 	Close() error
+	
+	// Fetch retrieves data from the source (simplified interface for compatibility)
+	Fetch() (interface{}, error)
 }
 
 // ReportGenerator is an interface for different report generation strategies
@@ -47,6 +41,9 @@ type OutputFormatter interface {
 
 // Plugin is an interface for dynamically loadable components
 type Plugin interface {
+	// ID returns the unique identifier for the plugin
+	ID() string
+	
 	// Type returns the type of the plugin (e.g., "report", "dataSource", "formatter")
 	Type() string
 	
@@ -55,4 +52,7 @@ type Plugin interface {
 	
 	// Instance returns the actual implementation of the plugin
 	Instance() interface{}
+	
+	// Initialize sets up the plugin with the provided configuration
+	Initialize(config map[string]interface{}) error
 }

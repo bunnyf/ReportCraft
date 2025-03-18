@@ -38,55 +38,64 @@ func (ds *InfluxDBDataSource) Initialize(config map[string]interface{}) error {
 
 	// Create a new InfluxDB client
 	ds.client = influxdb2.NewClient(url, token)
-
-	// Get the query API
+	
+	// Get query API for the org
 	ds.queryAPI = ds.client.QueryAPI(org)
-
+	
 	return nil
 }
 
 // FetchData retrieves data from InfluxDB based on the provided Flux query
 func (ds *InfluxDBDataSource) FetchData(ctx context.Context, query interface{}) (interface{}, error) {
-	// Check if query is a string
+	// The query should be provided as a string containing a Flux query
 	fluxQuery, ok := query.(string)
 	if !ok {
 		return nil, fmt.Errorf("query must be a Flux query string")
 	}
-
-	// Run the query
+	
+	// Run query
 	result, err := ds.queryAPI.Query(ctx, fluxQuery)
 	if err != nil {
-		return nil, fmt.Errorf("failed to execute query: %w", err)
+		return nil, fmt.Errorf("error querying InfluxDB: %w", err)
 	}
-	defer result.Close()
-
+	
 	// Process the results
-	var data []map[string]interface{}
+	var rows []map[string]interface{}
 	for result.Next() {
+		// Convert the record to a map
 		record := make(map[string]interface{})
-
-		// Get the record values
+		
+		// Get all the values
 		for k, v := range result.Record().Values() {
 			record[k] = v
 		}
-
-		// Add time field if not present
-		if _, ok := record["_time"]; !ok {
-			recordTime := result.Record().Time()
-			if !recordTime.IsZero() {
-				record["_time"] = recordTime.Format(time.RFC3339)
-			}
+		
+		// Add special handling for time
+		t := result.Record().Time()
+		if !t.IsZero() {
+			record["time"] = t.Format(time.RFC3339)
 		}
-
-		data = append(data, record)
+		
+		rows = append(rows, record)
 	}
-
-	// Check for error in the result iteration
+	
+	// Check for errors after iterating through the result
 	if result.Err() != nil {
-		return nil, fmt.Errorf("error parsing query result: %w", result.Err())
+		return nil, fmt.Errorf("error processing query results: %w", result.Err())
 	}
+	
+	return rows, nil
+}
 
-	return data, nil
+// Fetch retrieves default data from InfluxDB 
+func (ds *InfluxDBDataSource) Fetch() (interface{}, error) {
+	// Provide a default query that returns some basic data
+	defaultQuery := `from(bucket:"_monitoring") 
+                   |> range(start: -1h) 
+                   |> filter(fn: (r) => r._measurement == "system" and r._field == "uptime") 
+                   |> limit(n: 10)`
+	
+	return ds.FetchData(context.Background(), defaultQuery)
 }
 
 // Close cleans up resources used by the InfluxDB data source

@@ -1,7 +1,6 @@
 package report
 
 import (
-	"archive/zip"
 	"bytes"
 	"context"
 	"fmt"
@@ -9,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+	"archive/zip"
 
 	"github.com/genrep/internal/core"
 	"github.com/nguyenthenguyen/docx"
@@ -29,27 +29,23 @@ func (r *HelloWordReport) Initialize(config *core.Config) error {
 
 // Generate creates a simple Word report with "Hello World"
 func (r *HelloWordReport) Generate(ctx context.Context, dataSources map[string]core.DataSource) error {
-	// Set up basic report data
 	r.data["title"] = "Hello World Report"
 	r.data["timestamp"] = time.Now().Format("2006-01-02 15:04:05")
-	
-	// Create the output directory if it doesn't exist
+
 	outputDir := filepath.Dir(r.config.OutputPath)
 	if _, err := os.Stat(outputDir); os.IsNotExist(err) {
 		if err := os.MkdirAll(outputDir, 0755); err != nil {
 			return fmt.Errorf("failed to create output directory: %w", err)
 		}
 	}
-	
-	// Create a proper Word document with "Hello World"
+
 	if err := r.generateWordDoc(); err != nil {
 		return fmt.Errorf("failed to generate Word document: %w", err)
 	}
-	
+
 	return nil
 }
 
-// generateWordDoc creates a simple Word document with "Hello World"
 func (r *HelloWordReport) generateWordDoc() error {
 	// First, we need a template Word document to start with
 	// Let's create a template file in the system temp directory

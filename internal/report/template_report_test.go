@@ -98,3 +98,7 @@ func (ds *MockDataSource) FetchData(ctx context.Context, query interface{}) (int
 func (ds *MockDataSource) Close() error {
 	return nil
 }
+
+func (ds *MockDataSource) Fetch() (interface{}, error) {
+	return ds.data, nil
+}

@@ -51,12 +51,6 @@ func (ds *FileDataSource) Initialize(config map[string]interface{}) error {
 
 // FetchData retrieves data from the file based on the provided query
 func (ds *FileDataSource) FetchData(ctx context.Context, query interface{}) (interface{}, error) {
-	// Check if the file exists
-	if _, err := os.Stat(ds.path); os.IsNotExist(err) {
-		return nil, fmt.Errorf("file not found: %s", ds.path)
-	}
-	
-	// Read the file based on its type
 	switch ds.fileType {
 	case "csv":
 		return ds.readCSV()
@@ -67,6 +61,12 @@ func (ds *FileDataSource) FetchData(ctx context.Context, query interface{}) (int
 	default:
 		return nil, fmt.Errorf("unsupported file type: %s", ds.fileType)
 	}
+}
+
+// Fetch retrieves data from the file (simplified version without query)
+func (ds *FileDataSource) Fetch() (interface{}, error) {
+	// This is a simplified version that calls FetchData with nil query
+	return ds.FetchData(context.Background(), nil)
 }
 
 // Close cleans up any resources used by the data source

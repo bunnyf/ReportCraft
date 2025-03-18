@@ -12,6 +12,7 @@ import (
 type MockDataSource struct {
 	InitializeFunc func(config map[string]interface{}) error
 	FetchDataFunc  func(ctx context.Context, query interface{}) (interface{}, error)
+	FetchFunc      func() (interface{}, error)
 	CloseFunc      func() error
 }
 
@@ -27,6 +28,13 @@ func (ds *MockDataSource) FetchData(ctx context.Context, query interface{}) (int
 		return ds.FetchDataFunc(ctx, query)
 	}
 	return "test-data", nil
+}
+
+func (ds *MockDataSource) Fetch() (interface{}, error) {
+	if ds.FetchFunc != nil {
+		return ds.FetchFunc()
+	}
+	return ds.FetchData(context.Background(), nil)
 }
 
 func (ds *MockDataSource) Close() error {

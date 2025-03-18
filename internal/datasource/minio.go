@@ -140,6 +140,35 @@ func (ds *MinioDataSource) FetchData(ctx context.Context, query interface{}) (in
 	}
 }
 
+// Fetch retrieves a default object from MinIO
+func (ds *MinioDataSource) Fetch() (interface{}, error) {
+	// Create a default query that gets the first object in the bucket
+	ctx := context.Background()
+	
+	// List objects in the bucket
+	objectCh := ds.client.ListObjects(ctx, ds.bucketName, minio.ListObjectsOptions{
+		Recursive: true,
+		MaxKeys:   1, // Get only first object
+	})
+	
+	// Get the first object
+	for object := range objectCh {
+		if object.Err != nil {
+			return nil, fmt.Errorf("error listing objects: %w", object.Err)
+		}
+		
+		// If we found an object, create a query and fetch it
+		query := MinioQuery{
+			ObjectName: object.Key,
+			Format:     "auto", // Automatically determine format
+		}
+		
+		return ds.FetchData(ctx, query)
+	}
+	
+	return nil, fmt.Errorf("no objects found in bucket: %s", ds.bucketName)
+}
+
 // Close cleans up resources used by the MinIO data source
 func (ds *MinioDataSource) Close() error {
 	// No specific cleanup needed for MinIO client
