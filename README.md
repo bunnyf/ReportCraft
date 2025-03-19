@@ -15,26 +15,35 @@ GenRep is a command-line tool written in Go that generates reports based on a JS
 
 1. First, make sure you have Go 1.20 or higher installed
 
-2. Clone the repository:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/genrep/ReportCraft.git
 ```
 
-3. Navigate to the project directory and build the project:
+1. Navigate to the project directory and build the project:
 
 ```bash
+# macOS/Linux
 cd ReportCraft
 go build -o reportcraft ./cmd/reportcraft/
+
+# Windows
+cd ReportCraft
+go build -o reportcraft.exe ./cmd/reportcraft/
 ```
 
-4. Run the program:
+1. Run the program:
 
 ```bash
+# macOS/Linux
 ./reportcraft -config=path/to/config.json
+
+# Windows
+reportcraft.exe -config=path\to\config.json
 ```
 
-5. The generated report will be saved at the output path specified in the config file
+1. The generated report will be saved at the output path specified in the config file
 
 ## Configuration Format
 
@@ -97,6 +106,59 @@ The table report allows for the following configuration options:
   }
 }
 ```
+
+## 振动分析报告
+
+ReportCraft 还支持生成设备振动波形和频谱分析报告，包含以下功能：
+
+1. 设备信息展示：设备名称、设备ID、测点位置等
+2. 波形数据图表：显示时域振动波形
+3. 频谱数据图表：显示频域分析结果
+4. 特征参数表格：展示波形和频谱的特征参数
+
+### 示例配置
+
+`examples` 目录中提供了示例配置文件：
+
+- `spectrum-report-embedded.json`：展示如何创建振动分析报告，使用内嵌数据
+- `spectrum-report-csv.json`：展示如何创建振动分析报告，使用外部CSV文件数据
+
+### 配置选项
+
+振动分析报告支持以下配置选项：
+
+```json
+{
+  "deviceInfo": {
+    "deviceName": "设备名称",
+    "deviceId": "设备ID",
+    "location": "位置信息",
+    "measurementPoint": "测点信息"
+  },
+  "waveformConfig": {
+    "title": "波形图标题",
+    "xLabel": "X轴标签",
+    "yLabel": "Y轴标签"
+  },
+  "spectrumConfig": {
+    "title": "频谱图标题",
+    "xLabel": "X轴标签",
+    "yLabel": "Y轴标签"
+  }
+}
+```
+
+## Windows环境注意事项
+
+在Windows环境中使用ReportCraft时，需要注意以下几点：
+
+1. 文件路径分隔符：Windows使用反斜杠(`\`)作为路径分隔符，而配置文件中建议使用正斜杠(`/`)，两者都可以正常工作。
+
+2. 输出文件命名：建议使用英文文件名，避免使用中文或特殊字符作为文件名，以防止编码问题。
+
+3. 命令行运行：在Windows环境中，使用`reportcraft.exe`而不是`./reportcraft`来运行程序。
+
+4. 配置文件示例：所有示例配置文件中的路径格式都兼容Windows环境。
 
 ## Architecture
 

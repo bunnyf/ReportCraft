@@ -6,3 +6,11 @@ doc/demo/波形频谱数据20250213151036.xls
 doc/demo/波形频谱数据20250213151148.xls
 doc/demo/点检数据-20250213150019.xlsx
 doc/demo/趋势图分析.docx
+output/table-report-embedded.docx
+output/table-report-csv.xlsx
+output/table-report-json.docx
+output/trend-analysis.docx
+output/waveform-analysis.docx
+output/waveform_spectrum_report.xlsx
+output/waveform_spectrum_report_csv.xlsx
+GITHUB_COMMIT_SUMMARY.md

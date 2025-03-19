@@ -1,0 +1,137 @@
+{
+  "reportType": "spectrum-report",
+  "outputPath": "./output/waveform_spectrum_report.xlsx",
+  "outputFormat": "xlsx",
+  "parameters": {
+    "title": "设备振动波形频谱分析报告",
+    "reportDate": "2025-03-19",
+    "description": "本报告包含了设备振动波形和频谱的分析数据",
+    "metadata": {
+      "author": "ReportCraft",
+      "company": "设备诊断中心",
+      "department": "设备健康管理部"
+    },
+    "deviceInfo": {
+      "deviceName": "离心泵",
+      "deviceId": "CP-101",
+      "location": "1号车间",
+      "measurementPoint": "电机非驱动端",
+      "sampleFrequency": 10240,
+      "sampleTime": "2025-02-13 15:10:36"
+    },
+    "waveformConfig": {
+      "title": "时域波形数据",
+      "xLabel": "时间(s)",
+      "yLabel": "加速度(m/s²)",
+      "chartStyle": {
+        "lineColor": "#1E90FF",
+        "lineWidth": 1.5,
+        "gridLines": true
+      }
+    },
+    "spectrumConfig": {
+      "title": "频谱分析数据",
+      "xLabel": "频率(Hz)",
+      "yLabel": "幅值(m/s²)",
+      "chartStyle": {
+        "barColor": "#FF4500",
+        "gridLines": true
+      }
+    },
+    "tablesConfig": [
+      {
+        "title": "波形特征参数",
+        "columns": [
+          {"field": "parameter", "header": "参数名称", "width": 25},
+          {"field": "value", "header": "数值", "width": 15},
+          {"field": "unit", "header": "单位", "width": 15}
+        ],
+        "headerStyle": {
+          "bold": true,
+          "background": "#DDEBF7",
+          "color": "#000000"
+        }
+      },
+      {
+        "title": "频谱特征参数",
+        "columns": [
+          {"field": "parameter", "header": "参数名称", "width": 25},
+          {"field": "value", "header": "数值", "width": 15},
+          {"field": "unit", "header": "单位", "width": 15},
+          {"field": "description", "header": "说明", "width": 30}
+        ],
+        "headerStyle": {
+          "bold": true,
+          "background": "#DDEBF7",
+          "color": "#000000"
+        }
+      }
+    ],
+    "embeddedData": {
+      "waveformData": [
+        {"time": 0.0, "acceleration": 0.145},
+        {"time": 0.001, "acceleration": 0.203},
+        {"time": 0.002, "acceleration": 0.267},
+        {"time": 0.003, "acceleration": 0.189},
+        {"time": 0.004, "acceleration": 0.098},
+        {"time": 0.005, "acceleration": -0.032},
+        {"time": 0.006, "acceleration": -0.187},
+        {"time": 0.007, "acceleration": -0.231},
+        {"time": 0.008, "acceleration": -0.176},
+        {"time": 0.009, "acceleration": -0.043},
+        {"time": 0.010, "acceleration": 0.121},
+        {"time": 0.011, "acceleration": 0.251},
+        {"time": 0.012, "acceleration": 0.298},
+        {"time": 0.013, "acceleration": 0.221},
+        {"time": 0.014, "acceleration": 0.045},
+        {"time": 0.015, "acceleration": -0.156},
+        {"time": 0.016, "acceleration": -0.302},
+        {"time": 0.017, "acceleration": -0.354},
+        {"time": 0.018, "acceleration": -0.278},
+        {"time": 0.019, "acceleration": -0.089},
+        {"time": 0.020, "acceleration": 0.145},
+        {"time": 0.021, "acceleration": 0.321},
+        {"time": 0.022, "acceleration": 0.385},
+        {"time": 0.023, "acceleration": 0.302},
+        {"time": 0.024, "acceleration": 0.098}
+      ],
+      "spectrumData": [
+        {"frequency": 0, "amplitude": 0.0},
+        {"frequency": 10, "amplitude": 0.032},
+        {"frequency": 20, "amplitude": 0.045},
+        {"frequency": 30, "amplitude": 0.073},
+        {"frequency": 40, "amplitude": 0.128},
+        {"frequency": 50, "amplitude": 0.463},
+        {"frequency": 60, "amplitude": 0.098},
+        {"frequency": 70, "amplitude": 0.072},
+        {"frequency": 80, "amplitude": 0.043},
+        {"frequency": 90, "amplitude": 0.032},
+        {"frequency": 100, "amplitude": 0.024},
+        {"frequency": 110, "amplitude": 0.018},
+        {"frequency": 120, "amplitude": 0.083},
+        {"frequency": 130, "amplitude": 0.056},
+        {"frequency": 140, "amplitude": 0.032},
+        {"frequency": 150, "amplitude": 0.019},
+        {"frequency": 160, "amplitude": 0.012},
+        {"frequency": 170, "amplitude": 0.008},
+        {"frequency": 180, "amplitude": 0.003},
+        {"frequency": 190, "amplitude": 0.001},
+        {"frequency": 200, "amplitude": 0.001}
+      ],
+      "waveformParameters": [
+        {"parameter": "RMS值", "value": 0.245, "unit": "m/s²"},
+        {"parameter": "峰值", "value": 0.385, "unit": "m/s²"},
+        {"parameter": "峰峰值", "value": 0.739, "unit": "m/s²"},
+        {"parameter": "峭度", "value": 2.87, "unit": ""},
+        {"parameter": "波形因数", "value": 1.57, "unit": ""}
+      ],
+      "spectrumParameters": [
+        {"parameter": "频率成分", "value": 50, "unit": "Hz", "description": "主频成分，可能为电机旋转频率"},
+        {"parameter": "最大幅值", "value": 0.463, "unit": "m/s²", "description": "对应50Hz频率点"},
+        {"parameter": "次谐波", "value": 120, "unit": "Hz", "description": "可能为轴承故障频率"},
+        {"parameter": "次谐波幅值", "value": 0.083, "unit": "m/s²", "description": "对应120Hz频率点"}
+      ]
+    }
+  },
+  "dataSources": []
+}

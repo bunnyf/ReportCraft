@@ -1,0 +1,101 @@
+{
+  "reportType": "spectrum-report",
+  "outputPath": "./output/waveform_spectrum_report_csv.xlsx",
+  "outputFormat": "xlsx",
+  "parameters": {
+    "title": "设备振动波形频谱分析报告",
+    "reportDate": "2025-03-19",
+    "description": "本报告包含了设备振动波形和频谱的分析数据",
+    "metadata": {
+      "author": "ReportCraft",
+      "company": "设备诊断中心",
+      "department": "设备健康管理部"
+    },
+    "deviceInfo": {
+      "deviceName": "离心泵",
+      "deviceId": "CP-101",
+      "location": "1号车间",
+      "measurementPoint": "电机非驱动端",
+      "sampleFrequency": 10240,
+      "sampleTime": "2025-02-13 15:10:36"
+    },
+    "waveformConfig": {
+      "title": "时域波形数据",
+      "xLabel": "时间(s)",
+      "yLabel": "加速度(m/s²)",
+      "chartStyle": {
+        "lineColor": "#1E90FF",
+        "lineWidth": 1.5,
+        "gridLines": true
+      }
+    },
+    "spectrumConfig": {
+      "title": "频谱分析数据",
+      "xLabel": "频率(Hz)",
+      "yLabel": "幅值(m/s²)",
+      "chartStyle": {
+        "barColor": "#FF4500",
+        "gridLines": true
+      }
+    },
+    "tablesConfig": [
+      {
+        "title": "波形特征参数",
+        "columns": [
+          {"field": "parameter", "header": "参数名称", "width": 25},
+          {"field": "value", "header": "数值", "width": 15},
+          {"field": "unit", "header": "单位", "width": 15}
+        ],
+        "headerStyle": {
+          "bold": true,
+          "background": "#DDEBF7",
+          "color": "#000000"
+        }
+      },
+      {
+        "title": "频谱特征参数",
+        "columns": [
+          {"field": "parameter", "header": "参数名称", "width": 25},
+          {"field": "value", "header": "数值", "width": 15},
+          {"field": "unit", "header": "单位", "width": 15},
+          {"field": "description", "header": "说明", "width": 30}
+        ],
+        "headerStyle": {
+          "bold": true,
+          "background": "#DDEBF7",
+          "color": "#000000"
+        }
+      }
+    ]
+  },
+  "dataSources": [
+    {
+      "id": "waveformData",
+      "type": "file",
+      "config": {
+        "path": "./examples/data/waveform_data.csv"
+      }
+    },
+    {
+      "id": "spectrumData",
+      "type": "file",
+      "config": {
+        "path": "./examples/data/spectrum_data.csv"
+      }
+    },
+    {
+      "id": "waveformParameters",
+      "type": "file",
+      "config": {
+        "path": "./examples/data/waveform_parameters.csv"
+      }
+    },
+    {
+      "id": "spectrumParameters",
+      "type": "file",
+      "config": {
+        "path": "./examples/data/spectrum_parameters.csv"
+      }
+    }
+  ]
+}
