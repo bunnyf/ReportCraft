@@ -99,7 +99,7 @@ ReportCraft支持以下图表类型：
    - 类型: `line`
    - 适用场景: 时域波形、趋势分析
    - 配置示例:
-   
+
      ```json
      "chartType": "line",
      "chartStyle": {
@@ -116,7 +116,7 @@ ReportCraft支持以下图表类型：
    - 类型: `bar`
    - 适用场景: 频谱分析
    - 配置示例:
-   
+
      ```json
      "chartType": "bar",
      "chartStyle": {
@@ -129,7 +129,7 @@ ReportCraft支持以下图表类型：
    - 类型: `scatter`
    - 适用场景: 相关性分析
    - 配置示例:
-   
+
      ```json
      "chartType": "scatter",
      "chartStyle": {
@@ -144,7 +144,7 @@ ReportCraft支持以下图表类型：
    - 类型: `heatmap`
    - 描述: 用于显示二维空间内的强度变化，如频率-时间-幅值的关系
    - 配置示例:
-   
+
      ```json
      "chartType": "heatmap",
      "chartStyle": {
@@ -155,49 +155,80 @@ ReportCraft支持以下图表类型：
        }
      }
      ```
-   
+
    - 数据源要求: 需要提供x(频率)、y(时间)、z(幅值)三维数据
 
 2. **3D表面图**
    - 类型: `3dsurface`
    - 描述: 提供完整的三维数据可视化，展示频率-时间-幅值的立体关系
    - 配置示例:
-   
+
      ```json
      "chartType": "3dsurface",
      "chartStyle": {
        "3dsurface": {
-         "wireframe": true,        // 是否显示线框
-         "colorScale": "jet",      // 色彩映射方案
-         "rotation": {             // 初始旋转角度
-           "x": 30,
-           "y": 45,
-           "z": 0
-         }
+         "wireframe": true,          // 是否显示线框网格
+         "colorScale": "jet",        // 色彩映射方案：jet, viridis, plasma, inferno, rainbow
+         "colorOpacity": 0.85,       // 曲面颜色透明度(0-1)
+         "meshDensity": {            // 网格密度设置
+           "x": 50,                  // X轴网格密度
+           "y": 50                   // Y轴网格密度
+         },
+         "rotation": {               // 初始视角设置
+           "x": 30,                  // X轴旋转角度
+           "y": 45,                  // Y轴旋转角度
+           "z": 0                    // Z轴旋转角度
+         },
+         "lighting": {               // 光照效果
+           "ambient": 0.6,           // 环境光强度
+           "diffuse": 0.8,           // 漫反射强度
+           "specular": 0.2           // 镜面反射强度
+         },
+         "interactiveControls": true // 是否启用交互式控制(旋转、缩放)
        }
      }
      ```
-   
+
    - 数据源要求: 需要提供x(频率)、y(时间)、z(幅值)三维数据
+   - 最佳实践:
+     - 针对大型数据集，可以调整`meshDensity`降低渲染复杂度提高性能
+     - 使用`colorScale`和`lighting`配置强调重要数据区域
+     - 启用`interactiveControls`允许用户自由旋转和缩放图表，便于深入分析
 
 3. **瀑布图**
    - 类型: `waterfall`
    - 描述: 用于分析随时间或其他条件变化的频谱，展示设备振动状态的演变
    - 配置示例:
-   
+
      ```json
      "chartType": "waterfall",
      "chartStyle": {
        "waterfall": {
-         "baseColor": "#1E90FF",   // 基础颜色
-         "colorGradient": true,    // 是否使用渐变色
-         "spacing": 0.1,           // 图层间距
-         "perspective": 30         // 透视角度
+         "baseColor": "#1E90FF",      // 基础颜色
+         "colorGradient": true,       // 是否使用渐变色
+         "gradientScheme": "rainbow", // 渐变色方案：rainbow, thermal, terrain, blues
+         "spacing": 0.1,              // 图层间距(0-1)
+         "perspective": 30,           // 透视角度(0-60)
+         "lineWidth": 1.2,            // 线条宽度
+         "fillOpacity": 0.7,          // 填充透明度(0-1)
+         "showGridLines": true,       // 显示网格线
+         "gridColor": "#333333",      // 网格线颜色
+         "labels": {                  // 标签设置
+           "showZValues": true,       // 在图层上显示Z值标签
+           "fontColor": "#EEEEEE",    // 标签文字颜色
+           "fontSize": 10             // 标签文字大小
+         },
+         "yAxisMode": "time",         // Y轴模式：time(时间)或order(阶次)
+         "renderQuality": "high"      // 渲染质量：low, medium, high
        }
      }
      ```
-   
+
    - 数据源要求: 需要提供x(频率)、y(时间)、z(幅值)三维数据
+   - 应用场景:
+     - 启动/关闭分析：捕捉设备启动或关闭过程中的振动变化
+     - 转速变化监测：分析不同转速下的振动频谱变化
+     - 故障发展追踪：跟踪故障从发生到发展的过程中频谱特征的变化
 
 ## 图表通用配置项
 

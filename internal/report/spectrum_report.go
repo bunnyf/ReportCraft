@@ -170,11 +170,22 @@ func (r *SpectrumReport) processChartConfig(config map[string]interface{}) map[s
 					enhancedStyle["3dsurface"] = map[string]interface{}{
 						"wireframe": true,
 						"colorScale": "jet",
+						"colorOpacity": 0.85,
+						"meshDensity": map[string]interface{}{
+							"x": 50,
+							"y": 50,
+						},
 						"rotation": map[string]interface{}{
-							"x": 45,
-							"y": 30,
+							"x": 30,
+							"y": 45,
 							"z": 0,
 						},
+						"lighting": map[string]interface{}{
+							"ambient": 0.6,
+							"diffuse": 0.8,
+							"specular": 0.2,
+						},
+						"interactiveControls": true,
 					}
 				}
 			case "waterfall":
@@ -182,8 +193,20 @@ func (r *SpectrumReport) processChartConfig(config map[string]interface{}) map[s
 					enhancedStyle["waterfall"] = map[string]interface{}{
 						"baseColor": "#1E90FF",
 						"colorGradient": true,
+						"gradientScheme": "rainbow",
 						"spacing": 0.1,
 						"perspective": 30,
+						"lineWidth": 1.2,
+						"fillOpacity": 0.7,
+						"showGridLines": true,
+						"gridColor": "#333333",
+						"labels": map[string]interface{}{
+							"showZValues": true,
+							"fontColor": "#EEEEEE",
+							"fontSize": 10,
+						},
+						"yAxisMode": "time",
+						"renderQuality": "high",
 					}
 				}
 			}
