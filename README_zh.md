@@ -120,6 +120,93 @@ ReportCraft 支持生成设备振动波形和频谱分析报告，包含以下�
 3. 频谱数据图表：显示频域分析结果
 4. 特征参数表格：展示波形和频谱的特征参数
 
+### 图表样式配置
+
+振动分析报告提供丰富的图表样式配置选项：
+
+#### 基础样式配置
+
+```json
+"chartStyle": {
+  "lineColor": "#1E90FF",
+  "lineWidth": 1.5,
+  "gridLines": true
+}
+```
+
+#### 增强样式配置
+
+```json
+"chartStyle": {
+  // 基础样式
+  "lineColor": "#1E90FF",
+  "lineWidth": 1.5,
+  "gridLines": true,
+  
+  // 坐标轴范围
+  "axis": {
+    "xMin": 0,
+    "xMax": 100,
+    "yMin": -0.5,
+    "yMax": 0.5
+  },
+  
+  // 数据点标记
+  "markers": {
+    "show": true,
+    "size": 4,
+    "color": "#FF4500",
+    "shape": "circle"  // 可选: circle, square, triangle, diamond
+  },
+  
+  // 网格线配置
+  "grid": {
+    "show": true,
+    "color": "#CCCCCC",
+    "lineStyle": "solid", // 可选: solid, dashed, dotted
+    "lineWidth": 0.5,
+    "minorGrid": {
+      "show": true,
+      "color": "#EEEEEE",
+      "lineStyle": "dotted",
+      "lineWidth": 0.25
+    }
+  },
+  
+  // 突出显示区域
+  "highlight": {
+    "regions": [
+      {
+        "xStart": 40,
+        "xEnd": 60,
+        "color": "rgba(255, 100, 100, 0.2)",
+        "label": "特征区域"
+      }
+    ]
+  },
+  
+  // 标题和标签样式
+  "labels": {
+    "title": {
+      "fontSize": 14,
+      "fontWeight": "bold",
+      "color": "#333333"
+    },
+    "axis": {
+      "fontSize": 12,
+      "color": "#666666"
+    }
+  },
+  
+  // 图例配置
+  "legend": {
+    "position": "bottom", // 可选: top, bottom, left, right
+    "fontSize": 11,
+    "color": "#333333"
+  }
+}
+```
+
 ### 示例配置
 
 `examples` 目录中提供了示例配置文件：

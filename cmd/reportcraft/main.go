@@ -25,7 +25,22 @@ func main() {
 		os.Exit(1)
 	}
 
-	reportGenerator := report.NewHelloWordReport()
+	// Register report generators based on the report type
+	var reportGenerator core.ReportGenerator
+	switch cfg.ReportType {
+	case "hello-word":
+		reportGenerator = report.NewHelloWordReport()
+	case "hello-excel":
+		reportGenerator = report.NewHelloExcelReport()
+	case "waveform-report":
+		reportGenerator = report.NewWaveformReport()
+	case "spectrum-report":
+		reportGenerator = report.NewSpectrumReport()
+	default:
+		fmt.Printf("Error: Unsupported report type: %s\n", cfg.ReportType)
+		os.Exit(1)
+	}
+
 	err = reportGenerator.Initialize(cfg)
 	if err != nil {
 		fmt.Printf("Error initializing report generator: %v\n", err)

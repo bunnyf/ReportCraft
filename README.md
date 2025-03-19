@@ -109,12 +109,99 @@ The table report allows for the following configuration options:
 
 ## 振动分析报告
 
-ReportCraft 还支持生成设备振动波形和频谱分析报告，包含以下功能：
+ReportCraft supports generating vibration waveform and spectrum analysis reports, with the following features:
 
-1. 设备信息展示：设备名称、设备ID、测点位置等
-2. 波形数据图表：显示时域振动波形
-3. 频谱数据图表：显示频域分析结果
-4. 特征参数表格：展示波形和频谱的特征参数
+1. Device information display: device name, device ID, measurement point, etc.
+2. Waveform data chart: displaying time domain vibration waveform
+3. Spectrum data chart: displaying frequency domain spectrum data
+4. Parameter tables: displaying waveform and spectrum characteristic parameters
+
+### 图表样式配置
+
+The vibration analysis report offers rich chart style configuration options:
+
+#### 基础样式配置
+
+```json
+"chartStyle": {
+  "lineColor": "#1E90FF",
+  "lineWidth": 1.5,
+  "gridLines": true
+}
+```
+
+#### 增强样式配置
+
+```json
+"chartStyle": {
+  // 基础样式
+  "lineColor": "#1E90FF",
+  "lineWidth": 1.5,
+  "gridLines": true,
+  
+  // 坐标轴范围
+  "axis": {
+    "xMin": 0,
+    "xMax": 100,
+    "yMin": -0.5,
+    "yMax": 0.5
+  },
+  
+  // 数据点标记
+  "markers": {
+    "show": true,
+    "size": 4,
+    "color": "#FF4500",
+    "shape": "circle"  // 可选: circle, square, triangle, diamond
+  },
+  
+  // 网格线配置
+  "grid": {
+    "show": true,
+    "color": "#CCCCCC",
+    "lineStyle": "solid", // 可选: solid, dashed, dotted
+    "lineWidth": 0.5,
+    "minorGrid": {
+      "show": true,
+      "color": "#EEEEEE",
+      "lineStyle": "dotted",
+      "lineWidth": 0.25
+    }
+  },
+  
+  // 突出显示区域
+  "highlight": {
+    "regions": [
+      {
+        "xStart": 40,
+        "xEnd": 60,
+        "color": "rgba(255, 100, 100, 0.2)",
+        "label": "特征区域"
+      }
+    ]
+  },
+  
+  // 标题和标签样式
+  "labels": {
+    "title": {
+      "fontSize": 14,
+      "fontWeight": "bold",
+      "color": "#333333"
+    },
+    "axis": {
+      "fontSize": 12,
+      "color": "#666666"
+    }
+  },
+  
+  // 图例配置
+  "legend": {
+    "position": "bottom", // 可选: top, bottom, left, right
+    "fontSize": 11,
+    "color": "#333333"
+  }
+}
+```
 
 ### 示例配置
 

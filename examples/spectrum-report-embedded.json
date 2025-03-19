@@ -26,7 +26,41 @@
       "chartStyle": {
         "lineColor": "#1E90FF",
         "lineWidth": 1.5,
-        "gridLines": true
+        "gridLines": true,
+        "axis": {
+          "xMin": 0,
+          "xMax": 1.0,
+          "yMin": -0.5,
+          "yMax": 0.5
+        },
+        "markers": {
+          "show": true,
+          "size": 3,
+          "color": "#0000FF",
+          "shape": "circle"
+        },
+        "grid": {
+          "show": true,
+          "color": "#CCCCCC",
+          "lineStyle": "dashed",
+          "lineWidth": 0.5
+        },
+        "labels": {
+          "title": {
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "color": "#333333"
+          },
+          "axis": {
+            "fontSize": 12,
+            "color": "#666666"
+          }
+        },
+        "legend": {
+          "position": "top",
+          "fontSize": 11,
+          "color": "#333333"
+        }
       }
     },
     "spectrumConfig": {
@@ -35,7 +69,51 @@
       "yLabel": "幅值(m/s²)",
       "chartStyle": {
         "barColor": "#FF4500",
-        "gridLines": true
+        "gridLines": true,
+        "axis": {
+          "xMin": 0,
+          "xMax": 5000,
+          "yMin": 0,
+          "yMax": 0.3
+        },
+        "grid": {
+          "show": true,
+          "color": "#CCCCCC",
+          "lineStyle": "solid",
+          "lineWidth": 0.5,
+          "minorGrid": {
+            "show": true,
+            "color": "#EEEEEE",
+            "lineStyle": "dotted",
+            "lineWidth": 0.25
+          }
+        },
+        "highlight": {
+          "regions": [
+            {
+              "xStart": 1000,
+              "xEnd": 1500,
+              "color": "rgba(255, 100, 100, 0.2)",
+              "label": "特征频率区域"
+            }
+          ]
+        },
+        "labels": {
+          "title": {
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "color": "#333333"
+          },
+          "axis": {
+            "fontSize": 12,
+            "color": "#666666"
+          }
+        },
+        "legend": {
+          "position": "right",
+          "fontSize": 11,
+          "color": "#333333"
+        }
       }
     },
     "tablesConfig": [
@@ -62,76 +140,43 @@
         ],
         "headerStyle": {
           "bold": true,
-          "background": "#DDEBF7",
+          "background": "#FFEBF7",
           "color": "#000000"
         }
       }
+    ]
+  },
+  "embeddedData": {
+    "waveformData": [
+      {"time": 0.0, "acceleration": 0.145},
+      {"time": 0.001, "acceleration": 0.203},
+      {"time": 0.002, "acceleration": 0.267},
+      {"time": 0.003, "acceleration": 0.312},
+      {"time": 0.004, "acceleration": 0.356}
     ],
-    "embeddedData": {
-      "waveformData": [
-        {"time": 0.0, "acceleration": 0.145},
-        {"time": 0.001, "acceleration": 0.203},
-        {"time": 0.002, "acceleration": 0.267},
-        {"time": 0.003, "acceleration": 0.189},
-        {"time": 0.004, "acceleration": 0.098},
-        {"time": 0.005, "acceleration": -0.032},
-        {"time": 0.006, "acceleration": -0.187},
-        {"time": 0.007, "acceleration": -0.231},
-        {"time": 0.008, "acceleration": -0.176},
-        {"time": 0.009, "acceleration": -0.043},
-        {"time": 0.010, "acceleration": 0.121},
-        {"time": 0.011, "acceleration": 0.251},
-        {"time": 0.012, "acceleration": 0.298},
-        {"time": 0.013, "acceleration": 0.221},
-        {"time": 0.014, "acceleration": 0.045},
-        {"time": 0.015, "acceleration": -0.156},
-        {"time": 0.016, "acceleration": -0.302},
-        {"time": 0.017, "acceleration": -0.354},
-        {"time": 0.018, "acceleration": -0.278},
-        {"time": 0.019, "acceleration": -0.089},
-        {"time": 0.020, "acceleration": 0.145},
-        {"time": 0.021, "acceleration": 0.321},
-        {"time": 0.022, "acceleration": 0.385},
-        {"time": 0.023, "acceleration": 0.302},
-        {"time": 0.024, "acceleration": 0.098}
-      ],
-      "spectrumData": [
-        {"frequency": 0, "amplitude": 0.0},
-        {"frequency": 10, "amplitude": 0.032},
-        {"frequency": 20, "amplitude": 0.045},
-        {"frequency": 30, "amplitude": 0.073},
-        {"frequency": 40, "amplitude": 0.128},
-        {"frequency": 50, "amplitude": 0.463},
-        {"frequency": 60, "amplitude": 0.098},
-        {"frequency": 70, "amplitude": 0.072},
-        {"frequency": 80, "amplitude": 0.043},
-        {"frequency": 90, "amplitude": 0.032},
-        {"frequency": 100, "amplitude": 0.024},
-        {"frequency": 110, "amplitude": 0.018},
-        {"frequency": 120, "amplitude": 0.083},
-        {"frequency": 130, "amplitude": 0.056},
-        {"frequency": 140, "amplitude": 0.032},
-        {"frequency": 150, "amplitude": 0.019},
-        {"frequency": 160, "amplitude": 0.012},
-        {"frequency": 170, "amplitude": 0.008},
-        {"frequency": 180, "amplitude": 0.003},
-        {"frequency": 190, "amplitude": 0.001},
-        {"frequency": 200, "amplitude": 0.001}
-      ],
-      "waveformParameters": [
-        {"parameter": "RMS值", "value": 0.245, "unit": "m/s²"},
-        {"parameter": "峰值", "value": 0.385, "unit": "m/s²"},
-        {"parameter": "峰峰值", "value": 0.739, "unit": "m/s²"},
-        {"parameter": "峭度", "value": 2.87, "unit": ""},
-        {"parameter": "波形因数", "value": 1.57, "unit": ""}
-      ],
-      "spectrumParameters": [
-        {"parameter": "频率成分", "value": 50, "unit": "Hz", "description": "主频成分，可能为电机旋转频率"},
-        {"parameter": "最大幅值", "value": 0.463, "unit": "m/s²", "description": "对应50Hz频率点"},
-        {"parameter": "次谐波", "value": 120, "unit": "Hz", "description": "可能为轴承故障频率"},
-        {"parameter": "次谐波幅值", "value": 0.083, "unit": "m/s²", "description": "对应120Hz频率点"}
-      ]
-    }
+    "spectrumData": [
+      {"frequency": 0, "amplitude": 0.0},
+      {"frequency": 10, "amplitude": 0.002},
+      {"frequency": 20, "amplitude": 0.005},
+      {"frequency": 30, "amplitude": 0.001},
+      {"frequency": 40, "amplitude": 0.006},
+      {"frequency": 50, "amplitude": 0.21},
+      {"frequency": 60, "amplitude": 0.007},
+      {"frequency": 70, "amplitude": 0.004},
+      {"frequency": 80, "amplitude": 0.003},
+      {"frequency": 90, "amplitude": 0.001},
+      {"frequency": 100, "amplitude": 0.005}
+    ],
+    "waveformParameters": [
+      {"parameter": "峰值", "value": 0.356, "unit": "m/s²"},
+      {"parameter": "均方根值", "value": 0.274, "unit": "m/s²"},
+      {"parameter": "峭度", "value": 2.86, "unit": "-"}
+    ],
+    "spectrumParameters": [
+      {"parameter": "主频", "value": 50, "unit": "Hz", "description": "信号的主要频率成分"},
+      {"parameter": "谐波率", "value": 12.5, "unit": "%", "description": "谐波分量占比"},
+      {"parameter": "频带能量", "value": 0.042, "unit": "m²/s⁴", "description": "0-100Hz频带的能量"}
+    ]
   },
   "dataSources": []
 }
