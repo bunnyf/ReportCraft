@@ -1,6 +1,6 @@
 {
-  "reportType": "SpectrumReport",
-  "outputPath": "reports/spectrum-analysis-csv.html",
+  "reportType": "spectrum-report",
+  "outputPath": "./output/spectrum-analysis-csv.html",
   "template": "templates/spectrum.html",
   "outputFormat": "html",
   "parameters": {

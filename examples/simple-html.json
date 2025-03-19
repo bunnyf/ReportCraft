@@ -1,0 +1,9 @@
+{
+  "reportType": "spectrum-report",
+  "outputPath": "./output/simple.html",
+  "template": "templates/simple.html",
+  "outputFormat": "html",
+  "parameters": {
+    "title": "Simple Test"
+  }
+}

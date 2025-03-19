@@ -2,6 +2,8 @@ package formatter
 
 import (
 	"fmt"
+	"html/template"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -43,7 +45,48 @@ type HTMLFormatter struct{}
 
 // Format formats the data into an HTML document
 func (f *HTMLFormatter) Format(data interface{}, outputPath string) error {
-	// Implementation for HTML document generation
+	// Check if template path is provided in the data
+	dataMap, ok := data.(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("data is not a map")
+	}
+
+	templatePath, ok := dataMap["_templatePath"].(string)
+	if !ok {
+		return fmt.Errorf("template path not found in data")
+	}
+
+	// Read the template file
+	templateContent, err := os.ReadFile(templatePath)
+	if err != nil {
+		return fmt.Errorf("failed to read template file: %w", err)
+	}
+
+	// Parse the template
+	tmpl, err := template.New(filepath.Base(templatePath)).Parse(string(templateContent))
+	if err != nil {
+		return fmt.Errorf("failed to parse template: %w", err)
+	}
+
+	// Create output directory if it doesn't exist
+	outputDir := filepath.Dir(outputPath)
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
+		return fmt.Errorf("failed to create output directory: %w", err)
+	}
+
+	// Create output file
+	outputFile, err := os.Create(outputPath)
+	if err != nil {
+		return fmt.Errorf("failed to create output file: %w", err)
+	}
+	defer outputFile.Close()
+
+	// Apply the template with the provided data
+	if err := tmpl.Execute(outputFile, data); err != nil {
+		return fmt.Errorf("failed to execute template: %w", err)
+	}
+
+	fmt.Printf("Generated HTML document at %s\n", outputPath)
 	return nil
 }
 

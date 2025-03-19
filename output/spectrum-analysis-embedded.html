@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibration Analysis Report - ReportCraft生成</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .report-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .report-date {
+            font-size: 14px;
+            color: #666;
+        }
+        .report-description {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #007bff;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .device-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .device-info-item {
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .device-info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-header">
+        <div class="report-title">Vibration Analysis Report</div>
+        <div class="report-date">报告生成日期: 2025-03-19</div>
+    </div>
+
+    <div class="report-description">
+        本报告包含了设备振动波形和频谱的分析数据
+    </div>
+
+    <div class="section">
+        <div class="section-title">设备信息</div>
+        <div class="device-info">
+            <div class="device-info-item">
+                <span class="device-info-label">设备名称:</span> Pump XYZ-123
+            </div>
+            <div class="device-info-item">
+                <span class="device-info-label">设备ID:</span> PMP-2023-01-456
+            </div>
+            <div class="device-info-item">
+                <span class="device-info-label">位置:</span> Building A, Room 302
+            </div>
+            <div class="device-info-item">
+                <span class="device-info-label">测点:</span> Drive End Bearing
+            </div>
+            <div class="device-info-item">
+                <span class="device-info-label">采样频率:</span> 10240 Hz
+            </div>
+            <div class="device-info-item">
+                <span class="device-info-label">采样时间:</span> 2025-02-13 15:10:36
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">时域波形</div>
+        <div class="chart-container" id="waveform-chart">
+            
+            [波形图表显示位置]
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">频谱分析</div>
+        <div class="chart-container" id="spectrum-chart">
+            
+            [频谱图表显示位置]
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">波形特征参数</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名称</th>
+                    <th>数值</th>
+                    <th>单位</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>峰值幅值</td>
+                    <td>0.327</td>
+                    <td>g</td>
+                </tr>
+                <tr>
+                    <td>均方根值(RMS)</td>
+                    <td>0.089</td>
+                    <td>g</td>
+                </tr>
+                <tr>
+                    <td>峭度</td>
+                    <td>3.24</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>波形因数</td>
+                    <td>3.67</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">频谱特征参数</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名称</th>
+                    <th>数值</th>
+                    <th>单位</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>主频频率</td>
+                    <td>200.5</td>
+                    <td>Hz</td>
+                    <td>主频成分对应频率</td>
+                </tr>
+                <tr>
+                    <td>主频幅值</td>
+                    <td>0.068</td>
+                    <td>g</td>
+                    <td>主频成分对应幅值</td>
+                </tr>
+                <tr>
+                    <td>频带能量</td>
+                    <td>0.023</td>
+                    <td>g²</td>
+                    <td>180-220Hz频带总能量</td>
+                </tr>
+                <tr>
+                    <td>频谱峭度</td>
+                    <td>2.87</td>
+                    <td>-</td>
+                    <td>频谱分布峭度指标</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">振动强度热图</div>
+        <div class="chart-container" id="heatmap-chart">
+            
+            [热图显示位置]
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>本报告由ReportCraft自动生成 | 设备诊断中心 - 设备健康管理部</p>
+        <p>报告作者: ReportCraft | 生成时间: 2025-03-19</p>
+    </div>
+</body>
+</html>

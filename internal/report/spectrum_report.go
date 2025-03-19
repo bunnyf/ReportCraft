@@ -21,12 +21,16 @@ func (r *SpectrumReport) Initialize(config *core.Config) error {
 	r.config = config
 	r.data = make(map[string]interface{})
 	
+	fmt.Printf("Output format: %s\n", config.OutputFormat)
+	
 	// Create the appropriate formatter based on the output format
 	var err error
 	r.formatter, err = formatter.CreateFormatter(config.OutputFormat)
 	if err != nil {
 		return fmt.Errorf("failed to create formatter: %w", err)
 	}
+	
+	fmt.Printf("Formatter type: %T\n", r.formatter)
 	
 	return nil
 }
@@ -43,11 +47,18 @@ func (r *SpectrumReport) Generate(ctx context.Context, dataSources map[string]co
 		return fmt.Errorf("failed to process data: %w", err)
 	}
 	
+	// If we're using an HTML formatter, add the template path to the data
+	if r.config.OutputFormat == "html" || r.config.OutputFormat == ".html" {
+		// Add template path to data for HTML formatter
+		r.data["_templatePath"] = r.config.Template
+	}
+	
 	// Format and save the report
 	if err := r.formatter.Format(r.data, r.config.OutputPath); err != nil {
 		return fmt.Errorf("failed to format report: %w", err)
 	}
 	
+	fmt.Printf("Generated %s at %s\n", r.config.OutputFormat, r.config.OutputPath)
 	return nil
 }
 
