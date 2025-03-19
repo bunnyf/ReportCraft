@@ -60,6 +60,44 @@ go build -o reportcraft ./cmd/reportcraft/
 }
 ```
 
+## 表格报告功能
+
+ReportCraft 现在支持从不同来源生成数据表格：
+
+1. 外部 JSON 文件：可以从 JSON 文件中检索特定路径的数据
+2. 外部 CSV 文件：可以直接从 CSV 文件导入数据
+3. 嵌入数据：可以直接在配置文件中包含数据
+
+### 示例配置
+
+`examples` 目录中提供了示例配置文件：
+
+- `table-report-json.json`：展示如何使用外部 JSON 文件中的数据
+- `table-report-csv.json`：展示如何使用外部 CSV 文件中的数据
+- `table-report-embedded.json`：展示如何在配置中直接嵌入数据
+
+### 表格配置选项
+
+表格报告允许以下配置选项：
+
+```json
+{
+  "tableConfig": {
+    "title": "表格标题",
+    "columns": [
+      {"field": "列名", "header": "列标题", "width": 15},
+      {"field": "另一列", "header": "另一个标题", "width": 20, "format": "date"}
+    ],
+    "headerStyle": {
+      "bold": true,
+      "background": "#DDEBF7",
+      "color": "#000000"
+    },
+    "alternateRowStyle": true
+  }
+}
+```
+
 ## 架构
 
 GenRep 采用插件架构设计，允许轻松扩展新的报表类型和数据源：

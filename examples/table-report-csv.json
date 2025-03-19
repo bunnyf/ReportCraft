@@ -1,0 +1,39 @@
+{
+  "reportType": "table-report",
+  "outputPath": "./output/table-report-csv.xlsx",
+  "outputFormat": "xlsx",
+  "parameters": {
+    "title": "员工数据表格报告",
+    "description": "这是一个从外部CSV文件获取的表格数据报告",
+    "metadata": {
+      "author": "ReportCraft",
+      "company": "Example Corp",
+      "department": "人力资源部"
+    },
+    "tableConfig": {
+      "title": "员工信息表",
+      "headerStyle": {
+        "bold": true,
+        "background": "#DDEBF7",
+        "color": "#000000"
+      },
+      "alternateRowStyle": true,
+      "columns": [
+        {"field": "id", "header": "ID", "width": 10},
+        {"field": "name", "header": "姓名", "width": 15},
+        {"field": "department", "header": "部门", "width": 20},
+        {"field": "position", "header": "职位", "width": 20},
+        {"field": "joinDate", "header": "入职日期", "width": 15, "format": "date"}
+      ]
+    }
+  },
+  "dataSources": [
+    {
+      "id": "employeeData",
+      "type": "file",
+      "config": {
+        "path": "./examples/data/sample-data.csv"
+      }
+    }
+  ]
+}

@@ -60,6 +60,44 @@ The configuration file is a JSON file with the following structure:
 }
 ```
 
+## Table Report Feature
+
+ReportCraft now supports generating data tables from different sources:
+
+1. External JSON file: Data can be retrieved from a JSON file with a specific data path
+2. External CSV file: Data can be imported directly from a CSV file
+3. Embedded data: Data can be included directly in the configuration file
+
+### Example Configurations
+
+Example configuration files are available in the `examples` directory:
+
+- `table-report-json.json`: Shows how to use data from an external JSON file
+- `table-report-csv.json`: Shows how to use data from an external CSV file
+- `table-report-embedded.json`: Shows how to embed data directly in the configuration
+
+### Table Configuration Options
+
+The table report allows for the following configuration options:
+
+```json
+{
+  "tableConfig": {
+    "title": "Table Title",
+    "columns": [
+      {"field": "columnName", "header": "Column Header", "width": 15},
+      {"field": "anotherColumn", "header": "Another Header", "width": 20, "format": "date"}
+    ],
+    "headerStyle": {
+      "bold": true,
+      "background": "#DDEBF7",
+      "color": "#000000"
+    },
+    "alternateRowStyle": true
+  }
+}
+```
+
 ## Architecture
 
 GenRep is designed with a plugin architecture that allows for easy extension with new report types and data sources:
