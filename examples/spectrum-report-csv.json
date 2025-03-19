@@ -1,28 +1,21 @@
 {
-  "reportType": "spectrum-report",
-  "outputPath": "./output/waveform_spectrum_report_csv.xlsx",
-  "outputFormat": "xlsx",
+  "reportType": "SpectrumReport",
+  "outputPath": "reports/spectrum-analysis-csv.html",
+  "template": "templates/spectrum.html",
+  "outputFormat": "html",
   "parameters": {
-    "title": "设备振动波形频谱分析报告",
-    "reportDate": "2025-03-19",
-    "description": "本报告包含了设备振动波形和频谱的分析数据",
-    "metadata": {
-      "author": "ReportCraft",
-      "company": "设备诊断中心",
-      "department": "设备健康管理部"
-    },
+    "title": "Vibration Analysis Report",
     "deviceInfo": {
-      "deviceName": "离心泵",
-      "deviceId": "CP-101",
-      "location": "1号车间",
-      "measurementPoint": "电机非驱动端",
-      "sampleFrequency": 10240,
-      "sampleTime": "2025-02-13 15:10:36"
+      "deviceName": "Pump XYZ-123",
+      "deviceId": "PMP-2023-01-456",
+      "location": "Building A, Room 302",
+      "measurementPoint": "Drive End Bearing"
     },
     "waveformConfig": {
-      "title": "时域波形数据",
-      "xLabel": "时间(s)",
-      "yLabel": "加速度(m/s²)",
+      "title": "Time Domain Waveform",
+      "xLabel": "Time (s)",
+      "yLabel": "Amplitude (g)",
+      "chartType": "line",
       "chartStyle": {
         "lineColor": "#1E90FF",
         "lineWidth": 1.5,
@@ -35,46 +28,9 @@
         },
         "markers": {
           "show": true,
-          "size": 3,
-          "color": "#0000FF",
+          "size": 4,
+          "color": "#FF4500",
           "shape": "circle"
-        },
-        "grid": {
-          "show": true,
-          "color": "#CCCCCC",
-          "lineStyle": "dashed",
-          "lineWidth": 0.5
-        },
-        "labels": {
-          "title": {
-            "fontSize": 14,
-            "fontWeight": "bold",
-            "color": "#333333"
-          },
-          "axis": {
-            "fontSize": 12,
-            "color": "#666666"
-          }
-        },
-        "legend": {
-          "position": "top",
-          "fontSize": 11,
-          "color": "#333333"
-        }
-      }
-    },
-    "spectrumConfig": {
-      "title": "频谱分析数据",
-      "xLabel": "频率(Hz)",
-      "yLabel": "幅值(m/s²)",
-      "chartStyle": {
-        "barColor": "#FF4500",
-        "gridLines": true,
-        "axis": {
-          "xMin": 0,
-          "xMax": 5000,
-          "yMin": 0,
-          "yMax": 0.3
         },
         "grid": {
           "show": true,
@@ -91,10 +47,10 @@
         "highlight": {
           "regions": [
             {
-              "xStart": 1000,
-              "xEnd": 1500,
+              "xStart": 0.4,
+              "xEnd": 0.6,
               "color": "rgba(255, 100, 100, 0.2)",
-              "label": "特征频率区域"
+              "label": "Impact Event"
             }
           ]
         },
@@ -110,39 +66,126 @@
           }
         },
         "legend": {
-          "position": "right",
+          "position": "bottom",
           "fontSize": 11,
           "color": "#333333"
         }
       }
     },
-    "tablesConfig": [
-      {
-        "title": "波形特征参数",
-        "columns": [
-          {"field": "parameter", "header": "参数名称", "width": 25},
-          {"field": "value", "header": "数值", "width": 15},
-          {"field": "unit", "header": "单位", "width": 15}
-        ],
-        "headerStyle": {
-          "bold": true,
-          "background": "#DDEBF7",
-          "color": "#000000"
+    "spectrumConfig": {
+      "title": "Frequency Spectrum",
+      "xLabel": "Frequency (Hz)",
+      "yLabel": "Amplitude (g)",
+      "chartType": "bar",
+      "chartStyle": {
+        "lineColor": "#32CD32",
+        "lineWidth": 1.0,
+        "gridLines": true,
+        "axis": {
+          "xMin": 0,
+          "xMax": 1000,
+          "yMin": 0,
+          "yMax": 0.1
+        },
+        "markers": {
+          "show": false
+        },
+        "grid": {
+          "show": true,
+          "color": "#CCCCCC",
+          "lineStyle": "solid",
+          "lineWidth": 0.5
+        },
+        "highlight": {
+          "regions": [
+            {
+              "xStart": 180,
+              "xEnd": 220,
+              "color": "rgba(255, 200, 100, 0.2)",
+              "label": "Bearing Fault Frequency"
+            }
+          ]
         }
+      }
+    },
+    "additionalCharts": [
+      {
+        "title": "Vibration Intensity Heat Map",
+        "xLabel": "Frequency (Hz)",
+        "yLabel": "Time (s)",
+        "chartType": "heatmap",
+        "chartStyle": {
+          "heatmap": {
+            "colorScale": "viridis",
+            "showColorBar": true,
+            "interpolate": true
+          },
+          "axis": {
+            "xMin": 0,
+            "xMax": 1000,
+            "yMin": 0,
+            "yMax": 10
+          },
+          "labels": {
+            "title": {
+              "fontSize": 14,
+              "fontWeight": "bold",
+              "color": "#333333"
+            }
+          }
+        },
+        "dataSourceId": "heatmapData"
       },
       {
-        "title": "频谱特征参数",
-        "columns": [
-          {"field": "parameter", "header": "参数名称", "width": 25},
-          {"field": "value", "header": "数值", "width": 15},
-          {"field": "unit", "header": "单位", "width": 15},
-          {"field": "description", "header": "说明", "width": 30}
-        ],
-        "headerStyle": {
-          "bold": true,
-          "background": "#FFEBF7",
-          "color": "#000000"
-        }
+        "title": "3D Vibration Surface Plot",
+        "xLabel": "Frequency (Hz)",
+        "yLabel": "Time (s)",
+        "zLabel": "Amplitude (g)",
+        "chartType": "3dsurface",
+        "chartStyle": {
+          "3dsurface": {
+            "wireframe": true,
+            "colorScale": "jet",
+            "rotation": {
+              "x": 30,
+              "y": 45,
+              "z": 0
+            }
+          },
+          "axis": {
+            "xMin": 0,
+            "xMax": 1000,
+            "yMin": 0,
+            "yMax": 10,
+            "zMin": 0,
+            "zMax": 0.1
+          }
+        },
+        "dataSourceId": "surfaceData"
+      },
+      {
+        "title": "Frequency Spectrum Waterfall Plot",
+        "xLabel": "Frequency (Hz)",
+        "yLabel": "Measurement Time",
+        "zLabel": "Amplitude (g)",
+        "chartType": "waterfall",
+        "chartStyle": {
+          "waterfall": {
+            "baseColor": "#1E90FF",
+            "colorGradient": true,
+            "spacing": 0.1,
+            "perspective": 30
+          },
+          "axis": {
+            "xMin": 0,
+            "xMax": 1000,
+            "yMin": 0,
+            "yMax": 5,
+            "zMin": 0,
+            "zMax": 0.1
+          }
+        },
+        "dataSourceId": "waterfallData"
       }
     ]
   },
@@ -151,34 +194,48 @@
       "id": "waveformData",
       "type": "csv",
       "config": {
-        "file": "./examples/data/spectrum_data.csv",
-        "timeColumn": "time",
-        "valueColumn": "acceleration"
+        "filePath": "data/waveform.csv",
+        "xColumn": "time",
+        "yColumn": "amplitude"
       }
     },
     {
       "id": "spectrumData",
       "type": "csv",
       "config": {
-        "file": "./examples/data/spectrum_data.csv",
+        "filePath": "data/spectrum.csv",
         "xColumn": "frequency",
         "yColumn": "amplitude"
       }
     },
     {
-      "id": "waveformParameters",
+      "id": "heatmapData",
       "type": "csv",
       "config": {
-        "file": "./examples/data/spectrum_parameters.csv",
-        "filter": "type='waveform'"
+        "filePath": "data/heatmap.csv",
+        "xColumn": "frequency",
+        "yColumn": "time",
+        "zColumn": "amplitude"
       }
     },
     {
-      "id": "spectrumParameters",
+      "id": "surfaceData",
       "type": "csv",
       "config": {
-        "file": "./examples/data/spectrum_parameters.csv",
-        "filter": "type='spectrum'"
+        "filePath": "data/surface.csv",
+        "xColumn": "frequency",
+        "yColumn": "time",
+        "zColumn": "amplitude"
+      }
+    },
+    {
+      "id": "waterfallData",
+      "type": "csv",
+      "config": {
+        "filePath": "data/waterfall.csv",
+        "xColumn": "frequency",
+        "yColumn": "time",
+        "zColumn": "amplitude"
       }
     }
   ]

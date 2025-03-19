@@ -120,6 +120,26 @@ ReportCraft 支持生成设备振动波形和频谱分析报告，包含以下�
 3. 频谱数据图表：显示频域分析结果
 4. 特征参数表格：展示波形和频谱的特征参数
 
+### 图表可视化类型
+
+ReportCraft 支持多种可视化类型，满足不同的分析需求：
+
+#### 基础图表类型
+- 线图：用于时域信号和趋势分析
+- 柱状图：用于频谱显示
+- 散点图：用于相关性分析
+
+#### 高级可视化类型
+- **热图**：用于显示二维空间内的强度变化
+- **三维表面图**：用于三维数据可视化
+- **瀑布图**：用于分析随时间或运行条件变化的频谱
+
+```json
+"chartType": "heatmap",
+"chartType": "3dsurface",
+"chartType": "waterfall"
+```
+
 ### 图表样式配置
 
 振动分析报告提供丰富的图表样式配置选项：
@@ -148,7 +168,9 @@ ReportCraft 支持生成设备振动波形和频谱分析报告，包含以下�
     "xMin": 0,
     "xMax": 100,
     "yMin": -0.5,
-    "yMax": 0.5
+    "yMax": 0.5,
+    "zMin": 0,  // 用于3D图表
+    "zMax": 1.0 // 用于3D图表
   },
   
   // 数据点标记
@@ -203,6 +225,32 @@ ReportCraft 支持生成设备振动波形和频谱分析报告，包含以下�
     "position": "bottom", // 可选: top, bottom, left, right
     "fontSize": 11,
     "color": "#333333"
+  },
+  
+  // 热图特定配置
+  "heatmap": {
+    "colorScale": "viridis", // 可选: viridis, jet, plasma, inferno
+    "showColorBar": true,
+    "interpolate": true
+  },
+  
+  // 三维表面图特定配置
+  "3dsurface": {
+    "wireframe": true,
+    "colorScale": "jet",
+    "rotation": {
+      "x": 45,
+      "y": 30,
+      "z": 0
+    }
+  },
+  
+  // 瀑布图特定配置
+  "waterfall": {
+    "baseColor": "#1E90FF",
+    "colorGradient": true,
+    "spacing": 0.1,
+    "perspective": 30
   }
 }
 ```

@@ -107,20 +107,42 @@ The table report allows for the following configuration options:
 }
 ```
 
-## 振动分析报告
+## Vibration Analysis Features
 
-ReportCraft supports generating vibration waveform and spectrum analysis reports, with the following features:
+ReportCraft supports generating device vibration waveform and spectrum analysis reports with the following features:
 
-1. Device information display: device name, device ID, measurement point, etc.
-2. Waveform data chart: displaying time domain vibration waveform
-3. Spectrum data chart: displaying frequency domain spectrum data
-4. Parameter tables: displaying waveform and spectrum characteristic parameters
+1. Device Information Display: Device name, ID, measurement location, etc.
+2. Waveform Data Charts: Display time-domain vibration waveforms
+3. Spectrum Data Charts: Display frequency-domain analysis results
+4. Feature Parameter Tables: Show characteristic parameters of waveform and spectrum
 
-### 图表样式配置
+### Chart Visualization Types
 
-The vibration analysis report offers rich chart style configuration options:
+ReportCraft supports multiple visualization types for different analysis needs:
 
-#### 基础样式配置
+#### Basic Chart Types
+
+- Line Chart: For time domain signals and trends
+- Bar Chart: For frequency spectrum display
+- Scatter Plot: For correlation analysis
+
+#### Advanced Visualization Types
+
+- **Heat Map**: For displaying intensity variations across two dimensions
+- **3D Surface Plot**: For three-dimensional data visualization
+- **Waterfall Plot**: For analyzing spectrum changes over time or operational conditions
+
+```json
+"chartType": "heatmap",
+"chartType": "3dsurface",
+"chartType": "waterfall"
+```
+
+### Chart Style Configuration
+
+Vibration analysis reports offer rich chart style configuration options:
+
+#### Basic Style Configuration
 
 ```json
 "chartStyle": {
@@ -130,36 +152,38 @@ The vibration analysis report offers rich chart style configuration options:
 }
 ```
 
-#### 增强样式配置
+#### Enhanced Style Configuration
 
 ```json
 "chartStyle": {
-  // 基础样式
+  // Basic style
   "lineColor": "#1E90FF",
   "lineWidth": 1.5,
   "gridLines": true,
   
-  // 坐标轴范围
+  // Coordinate axis range
   "axis": {
     "xMin": 0,
     "xMax": 100,
     "yMin": -0.5,
-    "yMax": 0.5
+    "yMax": 0.5,
+    "zMin": 0,  // For 3D charts
+    "zMax": 1.0 // For 3D charts
   },
   
-  // 数据点标记
+  // Data point markers
   "markers": {
     "show": true,
     "size": 4,
     "color": "#FF4500",
-    "shape": "circle"  // 可选: circle, square, triangle, diamond
+    "shape": "circle"  // Options: circle, square, triangle, diamond
   },
   
-  // 网格线配置
+  // Grid lines configuration
   "grid": {
     "show": true,
     "color": "#CCCCCC",
-    "lineStyle": "solid", // 可选: solid, dashed, dotted
+    "lineStyle": "solid", // Options: solid, dashed, dotted
     "lineWidth": 0.5,
     "minorGrid": {
       "show": true,
@@ -169,19 +193,19 @@ The vibration analysis report offers rich chart style configuration options:
     }
   },
   
-  // 突出显示区域
+  // Highlight regions
   "highlight": {
     "regions": [
       {
         "xStart": 40,
         "xEnd": 60,
         "color": "rgba(255, 100, 100, 0.2)",
-        "label": "特征区域"
+        "label": "Feature Region"
       }
     ]
   },
   
-  // 标题和标签样式
+  // Title and label styles
   "labels": {
     "title": {
       "fontSize": 14,
@@ -194,43 +218,69 @@ The vibration analysis report offers rich chart style configuration options:
     }
   },
   
-  // 图例配置
+  // Legend configuration
   "legend": {
-    "position": "bottom", // 可选: top, bottom, left, right
+    "position": "bottom", // Options: top, bottom, left, right
     "fontSize": 11,
     "color": "#333333"
+  },
+  
+  // Specific for Heat Map
+  "heatmap": {
+    "colorScale": "viridis", // Options: viridis, jet, plasma, inferno
+    "showColorBar": true,
+    "interpolate": true
+  },
+  
+  // Specific for 3D Surface
+  "3dsurface": {
+    "wireframe": true,
+    "colorScale": "jet",
+    "rotation": {
+      "x": 45,
+      "y": 30,
+      "z": 0
+    }
+  },
+  
+  // Specific for Waterfall Plot
+  "waterfall": {
+    "baseColor": "#1E90FF",
+    "colorGradient": true,
+    "spacing": 0.1,
+    "perspective": 30
   }
 }
 ```
 
-### 示例配置
+### Example Configurations
 
-`examples` 目录中提供了示例配置文件：
+`examples` directory contains example configuration files:
 
-- `spectrum-report-embedded.json`：展示如何创建振动分析报告，使用内嵌数据
-- `spectrum-report-csv.json`：展示如何创建振动分析报告，使用外部CSV文件数据
+- `spectrum-report-embedded.json`: Shows how to create a vibration analysis report using embedded data
+- `spectrum-report-csv.json`: Shows how to create a vibration analysis report using data from an external CSV file
 
-### 配置选项
+### Configuration Options
 
-振动分析报告支持以下配置选项：
+Vibration analysis reports support the following configuration options:
 
 ```json
 {
   "deviceInfo": {
-    "deviceName": "设备名称",
-    "deviceId": "设备ID",
-    "location": "位置信息",
-    "measurementPoint": "测点信息"
+    "deviceName": "Device Name",
+    "deviceId": "Device ID",
+    "location": "Location Information",
+    "measurementPoint": "Measurement Point Information"
   },
   "waveformConfig": {
-    "title": "波形图标题",
-    "xLabel": "X轴标签",
-    "yLabel": "Y轴标签"
+    "title": "Waveform Chart Title",
+    "xLabel": "X-axis Label",
+    "yLabel": "Y-axis Label"
   },
   "spectrumConfig": {
-    "title": "频谱图标题",
-    "xLabel": "X轴标签",
-    "yLabel": "Y轴标签"
+    "title": "Spectrum Chart Title",
+    "xLabel": "X-axis Label",
+    "yLabel": "Y-axis Label"
   }
 }
 ```

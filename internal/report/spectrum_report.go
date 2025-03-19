@@ -142,6 +142,56 @@ func (r *SpectrumReport) processChartConfig(config map[string]interface{}) map[s
 		enhancedConfig[k] = v
 	}
 	
+	// Process chart type if present
+	if chartType, ok := config["chartType"].(string); ok {
+		enhancedConfig["chartType"] = chartType
+		
+		// Add default settings based on chart type if not already specified
+		if chartStyle, ok := config["chartStyle"].(map[string]interface{}); ok {
+			enhancedStyle := make(map[string]interface{})
+			
+			// Copy basic style properties
+			for k, v := range chartStyle {
+				enhancedStyle[k] = v
+			}
+			
+			// Apply type-specific default configurations if they don't exist
+			switch chartType {
+			case "heatmap":
+				if _, exists := chartStyle["heatmap"]; !exists {
+					enhancedStyle["heatmap"] = map[string]interface{}{
+						"colorScale":  "viridis",
+						"showColorBar": true,
+						"interpolate": true,
+					}
+				}
+			case "3dsurface":
+				if _, exists := chartStyle["3dsurface"]; !exists {
+					enhancedStyle["3dsurface"] = map[string]interface{}{
+						"wireframe": true,
+						"colorScale": "jet",
+						"rotation": map[string]interface{}{
+							"x": 45,
+							"y": 30,
+							"z": 0,
+						},
+					}
+				}
+			case "waterfall":
+				if _, exists := chartStyle["waterfall"]; !exists {
+					enhancedStyle["waterfall"] = map[string]interface{}{
+						"baseColor": "#1E90FF",
+						"colorGradient": true,
+						"spacing": 0.1,
+						"perspective": 30,
+					}
+				}
+			}
+			
+			enhancedConfig["chartStyle"] = enhancedStyle
+		}
+	}
+	
 	// Process chart style if present
 	if chartStyle, ok := config["chartStyle"].(map[string]interface{}); ok {
 		enhancedStyle := make(map[string]interface{})
@@ -179,6 +229,21 @@ func (r *SpectrumReport) processChartConfig(config map[string]interface{}) map[s
 		// Process legend configuration
 		if legend, ok := chartStyle["legend"].(map[string]interface{}); ok {
 			enhancedStyle["legendConfig"] = legend
+		}
+		
+		// Process heatmap specific configuration
+		if heatmap, ok := chartStyle["heatmap"].(map[string]interface{}); ok {
+			enhancedStyle["heatmapConfig"] = heatmap
+		}
+		
+		// Process 3D surface specific configuration
+		if surface3d, ok := chartStyle["3dsurface"].(map[string]interface{}); ok {
+			enhancedStyle["surface3dConfig"] = surface3d
+		}
+		
+		// Process waterfall specific configuration
+		if waterfall, ok := chartStyle["waterfall"].(map[string]interface{}); ok {
+			enhancedStyle["waterfallConfig"] = waterfall
 		}
 		
 		enhancedConfig["chartStyle"] = enhancedStyle
