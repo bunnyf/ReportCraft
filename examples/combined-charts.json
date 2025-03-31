@@ -1,0 +1,130 @@
+{
+  "reportType": "combined-report",
+  "outputPath": "./output/combined-analysis.html",
+  "template": "templates/combined-charts.html",
+  "outputFormat": "html",
+  "parameters": {
+    "title": "设备综合状态分析报告",
+    "description": "此报告结合了多种图表类型，全面分析设备运行状态和趋势",
+    "reportDate": "2025-03-20",
+    "equipmentInfo": {
+      "name": "发电机组A",
+      "model": "G-9000",
+      "serialNumber": "SN20250105",
+      "location": "主厂房",
+      "installDate": "2024-08-15"
+    },
+    "sectionLayout": {
+      "responsive": true,
+      "columns": 2,
+      "rowsPerPage": 3
+    },
+    "charts": [
+      {
+        "type": "gauge",
+        "title": "设备健康指数",
+        "data": "healthIndex",
+        "config": {
+          "min": 0,
+          "max": 100,
+          "thresholds": [
+            {"value": 40, "color": "#FF0000", "label": "严重"},
+            {"value": 60, "color": "#FFA500", "label": "警告"},
+            {"value": 80, "color": "#FFFF00", "label": "注意"},
+            {"value": 100, "color": "#00FF00", "label": "正常"}
+          ],
+          "units": "%",
+          "showValue": true,
+          "animation": true
+        }
+      },
+      {
+        "type": "timeSeries",
+        "title": "关键参数趋势",
+        "data": "parameterTrends",
+        "config": {
+          "xAxis": {"label": "时间", "type": "time"},
+          "yAxis": {"label": "测量值", "autoScale": true},
+          "legend": true,
+          "series": [
+            {"name": "温度", "color": "#FF0000"},
+            {"name": "振动", "color": "#0000FF"},
+            {"name": "转速", "color": "#00FF00"}
+          ],
+          "markers": [
+            {"date": "2025-02-15", "label": "维护", "color": "#FF00FF"}
+          ]
+        }
+      },
+      {
+        "type": "barChart",
+        "title": "各部件故障概率",
+        "data": "faultProbability",
+        "config": {
+          "xAxis": {"label": "部件", "categoryField": "component"},
+          "yAxis": {"label": "故障概率 (%)", "max": 100},
+          "bars": {"orientation": "vertical", "colors": ["#3366CC", "#DC3912", "#FF9900", "#109618"]},
+          "thresholdLine": {"value": 70, "color": "#FF0000", "label": "高风险阈值"}
+        }
+      },
+      {
+        "type": "pieChart",
+        "title": "故障类型分布",
+        "data": "faultTypeDistribution",
+        "config": {
+          "labels": true,
+          "values": true,
+          "percentage": true,
+          "legend": true,
+          "colors": ["#3366CC", "#DC3912", "#FF9900", "#109618", "#990099"]
+        }
+      },
+      {
+        "type": "spectrum",
+        "title": "频谱分析",
+        "data": "spectrumData",
+        "config": {
+          "xAxis": {"label": "频率 (Hz)", "min": 0, "max": 1000},
+          "yAxis": {"label": "幅值 (mm/s)", "logScale": false},
+          "peaks": {"show": true, "threshold": 0.5, "labelTop": 5},
+          "faultFrequencies": [
+            {"value": 24.5, "label": "1X", "color": "#FF0000"},
+            {"value": 49.0, "label": "2X", "color": "#FFA500"}
+          ]
+        }
+      },
+      {
+        "type": "heatMap",
+        "title": "设备温度分布",
+        "data": "temperatureMap",
+        "config": {
+          "colorScale": ["#0000FF", "#00FFFF", "#FFFF00", "#FF0000"],
+          "xAxis": {"label": "X位置 (cm)"},
+          "yAxis": {"label": "Y位置 (cm)"},
+          "labels": {"show": true, "decimals": 1},
+          "legend": {"title": "温度 (°C)"}
+        }
+      }
+    ],
+    "dataAnalysisSummary": {
+      "showTrends": true,
+      "showAnomalies": true,
+      "showCorrelations": true,
+      "predictiveAnalysis": {
+        "enabled": true,
+        "method": "regression",
+        "predictionHorizon": 30,
+        "confidenceInterval": 0.95
+      }
+    }
+  },
+  "dataSources": [
+    {
+      "id": "combinedData",
+      "type": "json",
+      "config": {
+        "path": "examples/data/combined_charts_data.json"
+      }
+    }
+  ]
+}

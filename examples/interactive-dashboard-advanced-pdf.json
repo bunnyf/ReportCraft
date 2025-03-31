@@ -1,0 +1,233 @@
+{
+  "reportType": "spectrum-report",
+  "title": "设备智能监测高级仪表盘-PDF版",
+  "description": "集成实时数据与历史趋势的交互式监控仪表板，PDF输出",
+  "outputPath": "../output/interactive-dashboard-advanced.pdf",
+  "outputFormat": "pdf",
+  "template": "../templates/spectrum.html",
+  "parameters": {
+    "title": "设备智能监测中心",
+    "subtitle": "实时状态与健康趋势分析",
+    "refreshInterval": 300,
+    "equipmentInfo": {
+      "name": "高速精密加工中心",
+      "model": "HMC-5000X",
+      "location": "制造车间A",
+      "serialNumber": "MC-20250203-0045",
+      "installDate": "2025-01-15"
+    },
+    "statusCards": [
+      {
+        "title": "运行状态",
+        "value": "正常运行",
+        "icon": "check-circle",
+        "color": "#4caf50",
+        "description": "设备当前运行良好，无异常"
+      },
+      {
+        "title": "运行时间",
+        "value": "352.6小时",
+        "icon": "clock",
+        "color": "#2196f3",
+        "description": "本月累计运行时间"
+      },
+      {
+        "title": "健康指数",
+        "value": "87%",
+        "icon": "heart",
+        "color": "#2196f3",
+        "description": "基于多参数综合评分"
+      },
+      {
+        "title": "能耗指标",
+        "value": "82.5 kWh",
+        "icon": "bolt",
+        "color": "#ff9800",
+        "description": "今日累计能耗"
+      }
+    ],
+    "monitoringParams": {
+      "temperature": {
+        "title": "温度监测",
+        "chartType": "line",
+        "xAxisTitle": "时间",
+        "yAxisTitle": "温度 (°C)",
+        "series": [
+          {
+            "name": "主轴温度",
+            "color": "#f44336",
+            "data": [
+              ["09:00", 65], ["09:30", 66], ["10:00", 68], ["10:30", 69],
+              ["11:00", 72], ["11:30", 71], ["12:00", 70], ["12:30", 71],
+              ["13:00", 73], ["13:30", 75], ["14:00", 74], ["14:30", 72]
+            ],
+            "alert": {
+              "min": 50,
+              "max": 85,
+              "warning": 75,
+              "critical": 80
+            }
+          },
+          {
+            "name": "控制柜温度",
+            "color": "#ff9800",
+            "data": [
+              ["09:00", 38], ["09:30", 37], ["10:00", 39], ["10:30", 40],
+              ["11:00", 41], ["11:30", 42], ["12:00", 41], ["12:30", 40],
+              ["13:00", 42], ["13:30", 43], ["14:00", 42], ["14:30", 41]
+            ],
+            "alert": {
+              "min": 20,
+              "max": 50,
+              "warning": 45,
+              "critical": 48
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "type": "line",
+            "value": 75,
+            "label": "温度警告阈值",
+            "color": "#ff9800",
+            "lineStyle": "dashed"
+          },
+          {
+            "type": "line",
+            "value": 80,
+            "label": "温度危险阈值",
+            "color": "#f44336",
+            "lineStyle": "dashed"
+          }
+        ]
+      },
+      "vibration": {
+        "title": "振动监测",
+        "chartType": "bar",
+        "xAxisTitle": "测量位置",
+        "yAxisTitle": "振动值 (mm/s RMS)",
+        "data": [
+          {
+            "name": "X轴",
+            "color": "#2196f3",
+            "values": [
+              {"position": "主轴前", "value": 1.2},
+              {"position": "主轴后", "value": 1.5},
+              {"position": "X轴电机", "value": 2.3},
+              {"position": "Y轴电机", "value": 1.8},
+              {"position": "Z轴电机", "value": 2.1},
+              {"position": "工作台", "value": 0.8}
+            ],
+            "thresholds": [
+              {"level": "正常", "max": 2.8, "color": "#4caf50"},
+              {"level": "警告", "max": 4.5, "color": "#ff9800"},
+              {"level": "危险", "max": 7.1, "color": "#f44336"}
+            ]
+          }
+        ]
+      }
+    },
+    "faultDiagnostics": {
+      "title": "故障诊断记录",
+      "tableData": {
+        "headers": ["时间", "类型", "位置", "严重性", "描述", "状态"],
+        "rows": [
+          {
+            "time": "2025-03-18 14:23",
+            "type": "振动异常",
+            "location": "主轴前轴承",
+            "severity": "警告",
+            "description": "振动值短暂超过警戒线",
+            "status": "已处理"
+          },
+          {
+            "time": "2025-03-15 09:45",
+            "type": "温度异常",
+            "location": "控制柜",
+            "severity": "警告",
+            "description": "温度达到46.8°C，接近阈值",
+            "status": "已处理"
+          },
+          {
+            "time": "2025-03-10 11:12",
+            "type": "加工精度异常",
+            "location": "X轴丝杠",
+            "severity": "一般",
+            "description": "重复精度波动增大50%",
+            "status": "已处理"
+          }
+        ]
+      }
+    },
+    "controlPanel": {
+      "filters": [
+        {
+          "name": "时间范围",
+          "type": "dateRange",
+          "options": [
+            {"label": "今日", "value": "today"},
+            {"label": "本周", "value": "thisWeek"},
+            {"label": "本月", "value": "thisMonth"},
+            {"label": "自定义", "value": "custom"}
+          ],
+          "default": "thisWeek"
+        },
+        {
+          "name": "参数分组",
+          "type": "multiSelect",
+          "options": [
+            {"label": "温度参数", "value": "temperature"},
+            {"label": "振动参数", "value": "vibration"},
+            {"label": "电气参数", "value": "electrical"},
+            {"label": "精度参数", "value": "precision"}
+          ],
+          "default": ["temperature", "vibration"]
+        },
+        {
+          "name": "警报级别",
+          "type": "select",
+          "options": [
+            {"label": "全部", "value": "all"},
+            {"label": "正常", "value": "normal"},
+            {"label": "警告", "value": "warning"},
+            {"label": "危险", "value": "danger"}
+          ],
+          "default": "all"
+        }
+      ],
+      "actions": [
+        {
+          "name": "导出数据",
+          "icon": "download",
+          "options": [
+            {"label": "导出为Excel", "value": "excel"},
+            {"label": "导出为CSV", "value": "csv"},
+            {"label": "导出为PDF", "value": "pdf"}
+          ]
+        },
+        {
+          "name": "参数配置",
+          "icon": "settings"
+        },
+        {
+          "name": "查看历史",
+          "icon": "history"
+        }
+      ]
+    },
+    "dataSources": [
+      {
+        "name": "实时数据",
+        "type": "live",
+        "endpoint": "/api/v1/realtime",
+        "refreshInterval": 60
+      },
+      {
+        "name": "历史数据",
+        "type": "historical",
+        "endpoint": "/api/v1/historical",
+        "cacheTime": 3600
+      }
+    ]
+  }
+}

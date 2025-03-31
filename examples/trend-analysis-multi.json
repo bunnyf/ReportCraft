@@ -1,0 +1,49 @@
+{
+  "reportType": "trend-report",
+  "outputPath": "./output/trend-analysis-multi.docx",
+  "template": "templates/trend-multi.docx",
+  "outputFormat": "docx",
+  "parameters": {
+    "title": "多参数趋势分析报告",
+    "description": "此报告展示了多个传感器参数的长期趋势分析",
+    "dateRange": "2025-01-01 至 2025-03-20",
+    "deviceInfo": {
+      "deviceName": "多通道监测系统XYZ-500",
+      "deviceId": "MCM-2025-03-789",
+      "location": "制造车间B区",
+      "installDate": "2024-12-15"
+    },
+    "chartConfig": {
+      "title": "多参数趋势图",
+      "xLabel": "时间",
+      "yLabel": "测量值",
+      "showLegend": true,
+      "lineStyles": [
+        {"name": "温度", "color": "#FF0000", "width": 1.5, "style": "solid"},
+        {"name": "湿度", "color": "#0000FF", "width": 1.5, "style": "dashed"},
+        {"name": "振动", "color": "#00FF00", "width": 1.5, "style": "dotted"},
+        {"name": "噪音", "color": "#FFA500", "width": 1.5, "style": "dashdot"}
+      ],
+      "gridLines": true,
+      "annotations": [
+        {"x": "2025-02-15", "label": "设备维护", "color": "#FF0000"},
+        {"x": "2025-03-01", "label": "参数调整", "color": "#0000FF"}
+      ]
+    },
+    "dataAnalysis": {
+      "showCorrelation": true,
+      "showOutliers": true,
+      "confidenceInterval": 0.95
+    }
+  },
+  "dataSources": [
+    {
+      "id": "trendData",
+      "type": "csv",
+      "config": {
+        "path": "examples/data/multi_trend_data.csv",
+        "delimiter": ","
+      }
+    }
+  ]
+}

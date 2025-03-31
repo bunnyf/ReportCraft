@@ -1,0 +1,321 @@
+{
+  "reportType": "spectrum-report",
+  "title": "设备智能监测高级仪表盘",
+  "description": "集成实时数据与历史趋势的交互式监控仪表板",
+  "outputPath": "../output/interactive-dashboard-advanced.html",
+  "outputFormat": "html",
+  "template": "../templates/spectrum.html",
+  "parameters": {
+    "title": "设备智能监测中心",
+    "subtitle": "实时状态与健康趋势分析",
+    "refreshInterval": 300,
+    "equipmentInfo": {
+      "name": "1号生产线主传动",
+      "location": "A工厂",
+      "serialNumber": "MD-2025-0108",
+      "manufacturer": "精密传动有限公司"
+    },
+    "dashboard": {
+      "layout": "responsive",
+      "colorTheme": "light",
+      "showSidebar": true,
+      "enableFullscreen": true,
+      "enableDataExport": true,
+      "enablePrint": true,
+      "showNotifications": true
+    },
+    "sections": [
+      {
+        "title": "状态概览",
+        "icon": "dashboard",
+        "widgets": [
+          {
+            "type": "statusCard",
+            "title": "设备健康",
+            "dataField": "statusSummary.overallHealth",
+            "width": "25%",
+            "height": "120px",
+            "icon": "health",
+            "unit": "%",
+            "thresholds": [
+              {"value": 0, "color": "#ff0000", "status": "危险"},
+              {"value": 60, "color": "#ffaa00", "status": "警告"},
+              {"value": 80, "color": "#00aa00", "status": "良好"}
+            ],
+            "showTrend": true,
+            "animation": true
+          },
+          {
+            "type": "statusCard",
+            "title": "警报状态",
+            "dataField": "statusSummary.activeAlarms",
+            "width": "25%",
+            "height": "120px",
+            "icon": "warning",
+            "counters": [
+              {"field": "critical", "label": "严重", "color": "#ff0000"},
+              {"field": "warning", "label": "警告", "color": "#ffaa00"},
+              {"field": "info", "label": "信息", "color": "#00aaff"}
+            ],
+            "showTotal": true
+          },
+          {
+            "type": "statusCard",
+            "title": "运行时间",
+            "dataField": "statusSummary.uptime",
+            "width": "25%",
+            "height": "120px",
+            "icon": "clock",
+            "valueColor": "#337ab7",
+            "showIcon": true
+          },
+          {
+            "type": "statusCard",
+            "title": "效率",
+            "dataField": "statusSummary.efficiency",
+            "width": "25%",
+            "height": "120px",
+            "icon": "performance",
+            "unit": "%",
+            "thresholds": [
+              {"value": 0, "color": "#ff0000"},
+              {"value": 70, "color": "#ffaa00"},
+              {"value": 90, "color": "#00aa00"}
+            ],
+            "animation": true
+          }
+        ]
+      },
+      {
+        "title": "振动监测",
+        "icon": "vibration",
+        "widgets": [
+          {
+            "type": "lineChart",
+            "title": "24小时振动趋势",
+            "dataField": "vibrationData",
+            "width": "75%",
+            "height": "300px",
+            "xField": "timestamps",
+            "xAxisTitle": "时间",
+            "yAxisTitle": "振动 (mm/s)",
+            "series": [
+              {"field": "rmsVelocity", "name": "RMS速度", "color": "#337dff", "lineWidth": 2},
+              {"field": "peakAcceleration", "name": "峰值加速度", "color": "#ff5733", "lineWidth": 2, "yAxis": 1}
+            ],
+            "yAxes": [
+              {"title": "速度 (mm/s)", "position": "left", "min": 0, "max": 10},
+              {"title": "加速度 (g)", "position": "right", "min": 0, "max": 5}
+            ],
+            "markers": true,
+            "tooltip": true,
+            "showGrid": true,
+            "enableZoom": true,
+            "smoothLines": true,
+            "showDataPoints": true,
+            "refreshable": true,
+            "thresholds": [
+              {"field": "vibrationData.alarmLevels.rmsVelocity[0].value", "color": "#00aaff", "axis": 0, "label": "注意", "lineStyle": "dotted"},
+              {"field": "vibrationData.alarmLevels.rmsVelocity[1].value", "color": "#ffaa00", "axis": 0, "label": "警告", "lineStyle": "dashed"},
+              {"field": "vibrationData.alarmLevels.rmsVelocity[2].value", "color": "#ff0000", "axis": 0, "label": "危险", "lineStyle": "solid"},
+              {"field": "vibrationData.alarmLevels.peakAcceleration[0].value", "color": "#00aaff", "axis": 1, "label": "注意", "lineStyle": "dotted"},
+              {"field": "vibrationData.alarmLevels.peakAcceleration[1].value", "color": "#ffaa00", "axis": 1, "label": "警告", "lineStyle": "dashed"},
+              {"field": "vibrationData.alarmLevels.peakAcceleration[2].value", "color": "#ff0000", "axis": 1, "label": "危险", "lineStyle": "solid"}
+            ]
+          },
+          {
+            "type": "spectralChart",
+            "title": "实时频谱",
+            "dataField": "spectrumData.spectra['2025-03-20T12:00:00Z'].CH1",
+            "width": "25%",
+            "height": "300px",
+            "xField": "频率",
+            "yField": "幅值",
+            "xAxisTitle": "频率 (Hz)",
+            "yAxisTitle": "幅值 (mm/s)",
+            "color": "#337dff",
+            "showGrid": true,
+            "enableZoom": true,
+            "showMarkers": true,
+            "peakDetection": true,
+            "peakLabels": true,
+            "peakThreshold": 0.1,
+            "maxPeaks": 5,
+            "annotations": [
+              {"x": 24.75, "color": "#ff0000", "label": "1X", "labelPosition": "top"},
+              {"x": 49.5, "color": "#ff0000", "label": "2X", "labelPosition": "top"}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "温度监测",
+        "icon": "temperature",
+        "widgets": [
+          {
+            "type": "lineChart",
+            "title": "24小时温度趋势",
+            "dataField": "temperatureData",
+            "width": "70%",
+            "height": "280px",
+            "xField": "timestamps",
+            "xAxisTitle": "时间",
+            "yAxisTitle": "温度 (°C)",
+            "series": [
+              {"field": "bearing1Temp", "name": "轴承1", "color": "#ff5733", "lineWidth": 2},
+              {"field": "bearing2Temp", "name": "轴承2", "color": "#337dff", "lineWidth": 2},
+              {"field": "motorTemp", "name": "电机", "color": "#ff33a8", "lineWidth": 2},
+              {"field": "ambientTemp", "name": "环境", "color": "#33ff57", "lineWidth": 2, "dashStyle": "dot"}
+            ],
+            "markers": true,
+            "tooltip": true,
+            "showGrid": true,
+            "enableZoom": true,
+            "smoothLines": true,
+            "showDataPoints": true,
+            "refreshable": true,
+            "thresholds": [
+              {"field": "temperatureData.thresholds.bearing1Temp[0].value", "color": "#00aaff", "label": "注意", "lineStyle": "dotted"},
+              {"field": "temperatureData.thresholds.bearing1Temp[1].value", "color": "#ffaa00", "label": "警告", "lineStyle": "dashed"},
+              {"field": "temperatureData.thresholds.bearing1Temp[2].value", "color": "#ff0000", "label": "危险", "lineStyle": "solid"}
+            ]
+          },
+          {
+            "type": "gaugeMulti",
+            "title": "当前温度",
+            "width": "30%",
+            "height": "280px",
+            "gauges": [
+              {
+                "title": "轴承1",
+                "dataField": "temperatureData.bearing1Temp[12]",
+                "min": 0,
+                "max": 100,
+                "unit": "°C",
+                "thresholds": [
+                  {"value": 0, "color": "#00aa00"},
+                  {"value": 65, "color": "#ffaa00"},
+                  {"value": 75, "color": "#ff0000"}
+                ]
+              },
+              {
+                "title": "轴承2",
+                "dataField": "temperatureData.bearing2Temp[12]",
+                "min": 0,
+                "max": 100,
+                "unit": "°C",
+                "thresholds": [
+                  {"value": 0, "color": "#00aa00"},
+                  {"value": 65, "color": "#ffaa00"},
+                  {"value": 75, "color": "#ff0000"}
+                ]
+              },
+              {
+                "title": "电机",
+                "dataField": "temperatureData.motorTemp[12]",
+                "min": 0,
+                "max": 100,
+                "unit": "°C",
+                "thresholds": [
+                  {"value": 0, "color": "#00aa00"},
+                  {"value": 80, "color": "#ffaa00"},
+                  {"value": 90, "color": "#ff0000"}
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "故障诊断",
+        "icon": "diagnosis",
+        "widgets": [
+          {
+            "type": "table",
+            "title": "故障诊断记录",
+            "dataField": "faultDiagnostics",
+            "width": "100%",
+            "height": "300px",
+            "columns": [
+              {"field": "timestamp", "title": "时间", "width": "15%", "format": "datetime"},
+              {"field": "component", "title": "部件", "width": "10%"},
+              {"field": "faultType", "title": "故障类型", "width": "15%"},
+              {"field": "severity", "title": "严重程度", "width": "10%", "format": "tag"},
+              {"field": "confidence", "title": "置信度", "width": "10%", "format": "percent"},
+              {"field": "description", "title": "描述", "width": "25%"},
+              {"field": "recommendation", "title": "建议", "width": "15%"}
+            ],
+            "sortable": true,
+            "filterable": true,
+            "pageable": true,
+            "pageSize": 5,
+            "highlightRules": [
+              {"field": "severity", "value": "critical", "color": "#ffdddd"},
+              {"field": "severity", "value": "warning", "color": "#fff6dd"},
+              {"field": "confidence", "min": 90, "color": "#ddffdd"}
+            ],
+            "tagColors": {
+              "critical": "#ff0000",
+              "warning": "#ffaa00",
+              "info": "#00aaff"
+            },
+            "exportable": true,
+            "refreshable": true
+          }
+        ]
+      }
+    ],
+    "userControls": {
+      "timeRangeSelector": {
+        "enable": true,
+        "options": ["6h", "12h", "24h", "48h", "7d"],
+        "default": "24h"
+      },
+      "updateInterval": {
+        "enable": true,
+        "options": ["关闭", "1分钟", "5分钟", "15分钟", "30分钟", "1小时"],
+        "default": "5分钟"
+      },
+      "dataFilters": [
+        {
+          "name": "机器状态",
+          "type": "checkbox",
+          "options": ["运行", "待机", "停机"],
+          "default": ["运行", "待机"]
+        },
+        {
+          "name": "数据通道",
+          "type": "checkbox",
+          "options": ["CH1", "CH2", "CH3", "CH4"],
+          "default": ["CH1", "CH2"]
+        }
+      ],
+      "themeSelector": {
+        "enable": true,
+        "options": ["浅色", "深色", "高对比度"],
+        "default": "浅色"
+      }
+    },
+    "interactivity": {
+      "enableDrillDown": true,
+      "enableTooltips": true,
+      "enableChartSync": true,
+      "enableDynamicFiltering": true,
+      "enableDataExport": true,
+      "enableParameterLinking": true
+    }
+  },
+  "dataSources": [
+    {
+      "type": "json",
+      "path": "data/dashboard_data.json"
+    }
+  ],
+  "footer": {
+    "companyName": "智能诊断监测中心",
+    "companyLogo": "assets/logo.png",
+    "contactInfo": "技术热线: 400-123-4567",
+    "pageNumbers": true,
+    "creationDate": true
+  }
+}

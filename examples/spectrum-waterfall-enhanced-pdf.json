@@ -1,0 +1,118 @@
+{
+  "reportType": "spectrum-report",
+  "title": "瀑布图谱分析增强版-PDF",
+  "description": "展示不同转速下的频谱变化情况，采用增强视觉效果，PDF输出",
+  "outputPath": "../output/spectrum-waterfall-enhanced.pdf",
+  "outputFormat": "pdf",
+  "template": "../templates/spectrum.html",
+  "parameters": {
+    "title": "电机振动瀑布图分析（增强版）",
+    "subtitle": "监测不同转速下频谱变化",
+    "equipmentInfo": {
+      "name": "离心泵电机组",
+      "location": "泵站3号",
+      "serialNumber": "PM-2025-0305",
+      "manufacturer": "优质泵业"
+    },
+    "analysisInfo": {
+      "analyst": "张工",
+      "date": "2025-03-20",
+      "samplingFrequency": "1024 Hz",
+      "samplingDuration": "10 秒",
+      "referenceStandard": "ISO 10816-3"
+    },
+    "chartOptions": {
+      "chartType": "waterfall",
+      "xAxisTitle": "频率 (Hz)",
+      "yAxisTitle": "转速 (RPM)",
+      "zAxisTitle": "幅值 (mm/s)",
+      "xAxisRange": [0, 100],
+      "zAxisRange": [0, 1],
+      "showAxis": true,
+      "showGrid": true,
+      "showLegend": true,
+      "showAxesLabels": true,
+      "backgroundColor": "#f8f9fa",
+      "plotBackgroundColor": "#ffffff",
+      "colorScale": "Viridis",
+      "gradientScheme": "rainbow",
+      "lineWidth": 1.2,
+      "fillOpacity": 0.7,
+      "showGridLines": true,
+      "gridColor": "#dddddd",
+      "labels": {
+        "showZValues": true,
+        "font": {
+          "family": "Arial",
+          "size": 10,
+          "color": "#333333"
+        }
+      },
+      "yAxisMode": "time",
+      "renderQuality": "high"
+    },
+    "data": {
+      "source": "embedded",
+      "values": [
+        {"frequency": 10, "rpm": 600, "amplitude": 0.05},
+        {"frequency": 20, "rpm": 600, "amplitude": 0.08},
+        {"frequency": 30, "rpm": 600, "amplitude": 0.15},
+        {"frequency": 40, "rpm": 600, "amplitude": 0.10},
+        {"frequency": 50, "rpm": 600, "amplitude": 0.25},
+        {"frequency": 60, "rpm": 600, "amplitude": 0.40},
+        {"frequency": 70, "rpm": 600, "amplitude": 0.30},
+        {"frequency": 80, "rpm": 600, "amplitude": 0.20},
+        {"frequency": 90, "rpm": 600, "amplitude": 0.10},
+        {"frequency": 10, "rpm": 900, "amplitude": 0.10},
+        {"frequency": 20, "rpm": 900, "amplitude": 0.15},
+        {"frequency": 30, "rpm": 900, "amplitude": 0.25},
+        {"frequency": 40, "rpm": 900, "amplitude": 0.20},
+        {"frequency": 50, "rpm": 900, "amplitude": 0.35},
+        {"frequency": 60, "rpm": 900, "amplitude": 0.60},
+        {"frequency": 70, "rpm": 900, "amplitude": 0.40},
+        {"frequency": 80, "rpm": 900, "amplitude": 0.25},
+        {"frequency": 90, "rpm": 900, "amplitude": 0.15},
+        {"frequency": 10, "rpm": 1200, "amplitude": 0.15},
+        {"frequency": 20, "rpm": 1200, "amplitude": 0.25},
+        {"frequency": 30, "rpm": 1200, "amplitude": 0.35},
+        {"frequency": 40, "rpm": 1200, "amplitude": 0.30},
+        {"frequency": 50, "rpm": 1200, "amplitude": 0.55},
+        {"frequency": 60, "rpm": 1200, "amplitude": 0.80},
+        {"frequency": 70, "rpm": 1200, "amplitude": 0.60},
+        {"frequency": 80, "rpm": 1200, "amplitude": 0.35},
+        {"frequency": 90, "rpm": 1200, "amplitude": 0.20},
+        {"frequency": 10, "rpm": 1500, "amplitude": 0.20},
+        {"frequency": 20, "rpm": 1500, "amplitude": 0.35},
+        {"frequency": 30, "rpm": 1500, "amplitude": 0.45},
+        {"frequency": 40, "rpm": 1500, "amplitude": 0.40},
+        {"frequency": 50, "rpm": 1500, "amplitude": 0.75},
+        {"frequency": 60, "rpm": 1500, "amplitude": 1.00},
+        {"frequency": 70, "rpm": 1500, "amplitude": 0.80},
+        {"frequency": 80, "rpm": 1500, "amplitude": 0.45},
+        {"frequency": 90, "rpm": 1500, "amplitude": 0.30}
+      ]
+    },
+    "annotations": [
+      {
+        "type": "point",
+        "x": 60,
+        "y": 1500,
+        "label": "临界频率",
+        "color": "#ff0000"
+      },
+      {
+        "type": "zone",
+        "xMin": 55,
+        "xMax": 65,
+        "label": "危险频域",
+        "color": "rgba(255, 0, 0, 0.2)"
+      }
+    ],
+    "conclusions": [
+      "在1500 RPM转速下，60Hz频率点出现显著振动峰值，达到1.0 mm/s",
+      "随着转速增加，60Hz处的振动幅值显著增大，表明存在与转速相关的共振问题",
+      "建议避免在1500 RPM附近长时间运行，以减少设备损伤风险",
+      "后续监测应重点关注60Hz附近频率区域的变化趋势"
+    ]
+  }
+}

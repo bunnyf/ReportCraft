@@ -1,0 +1,50 @@
+{
+  "title": "设备故障预测分析报告",
+  "reportType": "spectrum-report",
+  "dataSource": {
+    "type": "csv",
+    "path": "./examples/data/failure_prediction_data.csv"
+  },
+  "charts": [
+    {
+      "type": "line",
+      "title": "关键参数趋势",
+      "xAxis": "日期",
+      "yAxis": ["温度", "振动", "噪音", "轴承温度", "润滑压力"],
+      "options": {
+        "showLegend": true,
+        "showGrid": true,
+        "lineWidth": 2,
+        "markerSize": 4,
+        "colors": ["#FF5733", "#33FF57", "#3357FF", "#F033FF", "#33FFF0"]
+      }
+    },
+    {
+      "type": "line",
+      "title": "故障概率与剩余寿命预测",
+      "xAxis": "日期",
+      "yAxis": ["故障概率", "预计剩余寿命(天)"],
+      "options": {
+        "showLegend": true,
+        "showGrid": true,
+        "lineWidth": 2.5,
+        "markerSize": 5,
+        "colors": ["#FF3333", "#3333FF"],
+        "yAxisSecondary": true
+      }
+    }
+  ],
+  "analysis": {
+    "trends": true,
+    "thresholds": {
+      "温度": 60,
+      "振动": 5.0,
+      "噪音": 100,
+      "故障概率": 0.7
+    },
+    "conclusions": true,
+    "recommendations": true
+  },
+  "outputFormat": "xlsx",
+  "outputPath": "./output/failure-prediction.xlsx"
+}

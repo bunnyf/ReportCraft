@@ -1,0 +1,40 @@
+{
+  "title": "振动频谱3D表面分析报告",
+  "reportType": "spectrum-report",
+  "dataSource": {
+    "type": "csv",
+    "path": "./examples/data/enhanced_3d_surface_data.csv"
+  },
+  "charts": [
+    {
+      "type": "3dsurface",
+      "title": "振动频谱3D表面图",
+      "xAxis": "x",
+      "yAxis": "y",
+      "zAxis": "z",
+      "options": {
+        "colorOpacity": 0.85,
+        "meshDensity": {
+          "x": 50,
+          "y": 50
+        },
+        "lighting": {
+          "ambient": 0.6,
+          "diffuse": 0.8,
+          "specular": 0.4
+        },
+        "interactiveControls": true,
+        "colorScheme": "rainbow",
+        "showGridLines": true,
+        "renderQuality": "high"
+      }
+    }
+  ],
+  "analysis": {
+    "peakDetection": true,
+    "harmonics": true,
+    "conclusions": true
+  },
+  "outputFormat": "xlsx",
+  "outputPath": "./output/enhanced-3d-surface.xlsx"
+}

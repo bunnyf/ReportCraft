@@ -1,0 +1,57 @@
+{
+  "reportType": "waveform-report",
+  "outputPath": "./output/waveform-multi-channel.html",
+  "template": "templates/waveform-multi.html",
+  "outputFormat": "html",
+  "parameters": {
+    "title": "多通道振动波形分析",
+    "description": "此报告展示多个测量点的振动波形数据和对比分析",
+    "testInfo": {
+      "testDate": "2025-03-18",
+      "testEngineer": "王工程师",
+      "testLocation": "主轴承箱体",
+      "equipmentModel": "CNC-M2000",
+      "samplingRate": "10 kHz",
+      "duration": "10 秒"
+    },
+    "channels": [
+      {"id": "CH1", "name": "水平测点", "color": "#1E90FF", "unit": "g"},
+      {"id": "CH2", "name": "垂直测点", "color": "#FF4500", "unit": "g"},
+      {"id": "CH3", "name": "轴向测点", "color": "#32CD32", "unit": "g"},
+      {"id": "CH4", "name": "参考测点", "color": "#FFD700", "unit": "g"}
+    ],
+    "chartConfig": {
+      "title": "多通道振动波形",
+      "xLabel": "时间 (秒)",
+      "yLabel": "加速度 (g)",
+      "showLegend": true,
+      "timeRange": [0, 10],
+      "amplitudeRange": [-5, 5],
+      "gridLines": true,
+      "enableZoom": true,
+      "synchronizeChannels": true,
+      "showRMS": true,
+      "showPeakToPeak": true,
+      "eventMarkers": [
+        {"time": 2.5, "label": "启动点", "color": "#FF0000"},
+        {"time": 7.8, "label": "负载变化", "color": "#0000FF"}
+      ]
+    },
+    "timeFrequencyAnalysis": {
+      "enabled": true,
+      "windowType": "Hanning",
+      "overlapPercent": 50,
+      "colormap": "viridis"
+    }
+  },
+  "dataSources": [
+    {
+      "id": "waveformData",
+      "type": "csv",
+      "config": {
+        "path": "examples/data/multichannel_waveform.csv",
+        "delimiter": ","
+      }
+    }
+  ]
+}

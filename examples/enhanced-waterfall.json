@@ -1,0 +1,41 @@
+{
+  "title": "振动频谱瀑布图分析报告",
+  "reportType": "spectrum-report",
+  "dataSource": {
+    "type": "csv",
+    "path": "./examples/data/enhanced_waterfall_data.csv"
+  },
+  "charts": [
+    {
+      "type": "waterfall",
+      "title": "振动频谱瀑布图",
+      "xAxis": "频率",
+      "yAxis": "时间",
+      "zAxis": "幅值",
+      "options": {
+        "gradientScheme": "rainbow",
+        "lineWidth": 1.2,
+        "fillOpacity": 0.7,
+        "showGridLines": true,
+        "gridColor": "#CCCCCC",
+        "labels": {
+          "showZValues": true,
+          "font": {
+            "family": "Arial",
+            "size": 10,
+            "color": "#333333"
+          }
+        },
+        "yAxisMode": "time",
+        "renderQuality": "high"
+      }
+    }
+  ],
+  "analysis": {
+    "peakDetection": true,
+    "orderTracking": true,
+    "conclusions": true
+  },
+  "outputFormat": "xlsx",
+  "outputPath": "./output/enhanced-waterfall.xlsx"
+}

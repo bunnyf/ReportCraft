@@ -1,0 +1,87 @@
+{
+  "reportType": "spectrum-report",
+  "outputPath": "./output/spectrum-waterfall.html",
+  "template": "templates/spectrum-waterfall.html",
+  "outputFormat": "html",
+  "parameters": {
+    "title": "振动频谱瀑布图分析报告",
+    "description": "此报告使用瀑布图展示设备在启动和运行过程中的频谱变化",
+    "testInfo": {
+      "testDate": "2025-03-05",
+      "testEngineer": "周分析师",
+      "testLocation": "涡轮机",
+      "equipmentModel": "GT-5000",
+      "samplingRate": "25.6 kHz",
+      "runupDuration": "120 秒"
+    },
+    "analysisParameters": {
+      "frequencyRange": [0, 1000],
+      "amplitudeUnit": "速度 (mm/s)",
+      "windowType": "Hanning",
+      "overlapPercent": 75,
+      "spectralLines": 3200
+    },
+    "chartConfig": {
+      "waterfall": {
+        "title": "启动过程频谱瀑布图",
+        "xLabel": "频率 (Hz)",
+        "yLabel": "时间 (秒)",
+        "zLabel": "幅值 (mm/s)",
+        "colorScheme": "rainbow",
+        "lineWidth": 1.2,
+        "fillOpacity": 0.7,
+        "showGridLines": true,
+        "gridColor": "#CCCCCC",
+        "layout": "3D",
+        "labels": {
+          "showZValue": true,
+          "fontSize": 10,
+          "fontFamily": "Arial",
+          "fontColor": "#333333"
+        },
+        "yAxisMode": "time",
+        "renderQuality": "high",
+        "viewAngle": {
+          "azimuth": 240,
+          "elevation": 30
+        }
+      },
+      "contourView": {
+        "title": "频谱等高线图",
+        "colorScheme": "magma",
+        "contourLevels": 20,
+        "showColorbar": true
+      }
+    },
+    "orderTrackingAnalysis": {
+      "enabled": true,
+      "rpmChannel": "Tacho",
+      "orders": [
+        {"order": 1, "name": "1X", "color": "#FF0000"},
+        {"order": 2, "name": "2X", "color": "#FF8000"},
+        {"order": 3, "name": "3X", "color": "#FFFF00"},
+        {"order": 4, "name": "4X", "color": "#00FF00"}
+      ],
+      "maxOrdersToShow": 10,
+      "orderSpectrum": true
+    },
+    "criticalSpeeds": [
+      {"rpm": 1200, "description": "一阶临界转速", "color": "#FF0000"},
+      {"rpm": 2800, "description": "二阶临界转速", "color": "#0000FF"}
+    ],
+    "annotations": [
+      {"time": 45, "description": "通过一阶临界转速", "color": "#FF0000"},
+      {"time": 90, "description": "通过二阶临界转速", "color": "#0000FF"}
+    ]
+  },
+  "dataSources": [
+    {
+      "id": "waterfallData",
+      "type": "csv",
+      "config": {
+        "path": "examples/data/waterfall_data.csv",
+        "delimiter": ","
+      }
+    }
+  ]
+}

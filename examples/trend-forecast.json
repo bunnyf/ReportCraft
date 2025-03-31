@@ -1,0 +1,57 @@
+{
+  "reportType": "trend-report",
+  "outputPath": "./output/trend-forecast.docx",
+  "template": "templates/trend-forecast.docx",
+  "outputFormat": "docx",
+  "parameters": {
+    "title": "设备性能预测报告",
+    "description": "此报告基于历史数据预测未来设备性能趋势",
+    "reportDate": "2025-03-20",
+    "deviceInfo": {
+      "deviceName": "预测性维护系统PM-800",
+      "deviceId": "PMS-2025-02-456",
+      "location": "发电机组A",
+      "installDate": "2024-11-10"
+    },
+    "chartConfig": {
+      "title": "性能预测趋势图",
+      "xLabel": "时间 (天)",
+      "yLabel": "效率指数 (%)",
+      "showLegend": true,
+      "seriesConfig": [
+        {"name": "历史数据", "color": "#1E90FF", "width": 1.5, "style": "solid"},
+        {"name": "预测数据", "color": "#FF4500", "width": 1.5, "style": "dashed", "markerStyle": "circle"}
+      ],
+      "regions": [
+        {"start": 60, "end": 90, "color": "rgba(255,255,0,0.2)", "label": "预警区间"},
+        {"start": 90, "end": 120, "color": "rgba(255,0,0,0.2)", "label": "危险区间"}
+      ],
+      "thresholdLines": [
+        {"value": 85, "color": "#FFA500", "width": 1.0, "style": "dashed", "label": "预警阈值"},
+        {"value": 75, "color": "#FF0000", "width": 1.0, "style": "solid", "label": "警报阈值"}
+      ]
+    },
+    "forecastConfig": {
+      "method": "arima",
+      "horizon": 60,
+      "confidenceInterval": 0.95,
+      "showConfidenceBands": true,
+      "seasonalityPeriod": 7
+    },
+    "recommendations": [
+      "根据预测趋势，建议在未来30天内安排预防性维护",
+      "密切监控设备在4月15日至5月1日期间的性能变化",
+      "准备备件以应对可能的效率下降"
+    ]
+  },
+  "dataSources": [
+    {
+      "id": "forecastData",
+      "type": "csv",
+      "config": {
+        "path": "examples/data/forecast_data.csv",
+        "delimiter": ","
+      }
+    }
+  ]
+}

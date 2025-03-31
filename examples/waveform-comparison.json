@@ -1,0 +1,64 @@
+{
+  "reportType": "waveform-report",
+  "outputPath": "./output/waveform-comparison.html",
+  "template": "templates/waveform-comparison.html",
+  "outputFormat": "html",
+  "parameters": {
+    "title": "设备状态对比分析报告",
+    "description": "此报告对比分析设备在不同运行状态下的振动波形特性",
+    "testInfo": {
+      "testDate": "2025-03-15",
+      "testEngineer": "李分析师",
+      "testLocation": "电机测试台",
+      "equipmentModel": "AC-Motor-T500",
+      "samplingRate": "25.6 kHz",
+      "duration": "5 秒"
+    },
+    "testConditions": [
+      {"id": "normal", "name": "正常运行", "color": "#008000", "description": "设备在标准工作条件下运行"},
+      {"id": "unbalance", "name": "不平衡状态", "color": "#FFA500", "description": "人为添加不平衡质量进行测试"},
+      {"id": "misalignment", "name": "不对中状态", "color": "#FF0000", "description": "人为调整轴系不对中进行测试"},
+      {"id": "looseness", "name": "松动状态", "color": "#8A2BE2", "description": "人为松动固定螺栓进行测试"}
+    ],
+    "chartConfig": {
+      "title": "振动波形对比",
+      "xLabel": "时间 (秒)",
+      "yLabel": "加速度 (g)",
+      "showLegend": true,
+      "timeRange": [0, 5],
+      "amplitudeRange": [-10, 10],
+      "gridLines": true,
+      "enableZoom": true,
+      "layout": "stacked",
+      "showStatistics": true,
+      "statisticsTable": [
+        {"name": "RMS", "unit": "g"},
+        {"name": "峰峰值", "unit": "g"},
+        {"name": "峭度", "unit": ""},
+        {"name": "波形因数", "unit": ""}
+      ]
+    },
+    "statisticalAnalysis": {
+      "enabled": true,
+      "correlationMatrix": true,
+      "featureExtraction": true,
+      "featureList": ["RMS", "峰值", "波形因数", "峭度", "偏度", "裕度因数"]
+    },
+    "patternRecognition": {
+      "enabled": true,
+      "method": "classification",
+      "featureImportance": true,
+      "confusionMatrix": true
+    }
+  },
+  "dataSources": [
+    {
+      "id": "comparisonData",
+      "type": "csv",
+      "config": {
+        "path": "examples/data/comparison_waveform.csv",
+        "delimiter": ","
+      }
+    }
+  ]
+}

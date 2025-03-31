@@ -1,0 +1,121 @@
+{
+  "reportType": "spectrum-report",
+  "title": "瀑布图谱分析增强版",
+  "description": "展示不同转速下的频谱变化情况，采用增强视觉效果",
+  "outputPath": "../output/spectrum-waterfall-enhanced.html",
+  "outputFormat": "html",
+  "template": "../templates/spectrum.html",
+  "parameters": {
+    "title": "电机振动瀑布图分析（增强版）",
+    "subtitle": "监测不同转速下频谱变化",
+    "equipmentInfo": {
+      "name": "离心泵电机组",
+      "location": "泵站3号",
+      "serialNumber": "PM-2025-0305",
+      "manufacturer": "优质泵业"
+    },
+    "analysisInfo": {
+      "analyst": "张工",
+      "date": "2025-03-20",
+      "samplingFrequency": "1024 Hz",
+      "samplingDuration": "10 秒",
+      "referenceStandard": "ISO 10816-3"
+    },
+    "chartOptions": {
+      "chartType": "waterfall",
+      "xAxisTitle": "频率 (Hz)",
+      "yAxisTitle": "转速 (RPM)",
+      "zAxisTitle": "幅值 (mm/s)",
+      "xAxisRange": [0, 100],
+      "zAxisRange": [0, 1],
+      "showAxis": true,
+      "showGrid": true,
+      "showLegend": true,
+      "showAxesLabels": true,
+      "backgroundColor": "#f8f9fa",
+      "plotBackgroundColor": "#ffffff",
+      "colorScale": "Viridis",
+      "gradientScheme": "rainbow",
+      "lineWidth": 1.2,
+      "fillOpacity": 0.7,
+      "showGridLines": true,
+      "gridColor": "#dddddd",
+      "labels": {
+        "showZValues": true,
+        "font": {
+          "family": "Arial",
+          "size": 10,
+          "color": "#333333"
+        }
+      },
+      "yAxisMode": "time",
+      "renderQuality": "high",
+      "enableZoom": true,
+      "interactiveControls": true
+    },
+    "annotations": [
+      {
+        "type": "text",
+        "x": 24.75,
+        "y": 1500,
+        "z": 0.6,
+        "text": "发现1倍频",
+        "textPosition": "right",
+        "fontColor": "#ff0000",
+        "backgroundColor": "rgba(255,255,255,0.8)",
+        "borderColor": "#ff0000",
+        "borderWidth": 1
+      },
+      {
+        "type": "text",
+        "x": 46.7,
+        "y": 2800,
+        "z": 0.9,
+        "text": "滚动轴承故障频率",
+        "textPosition": "left",
+        "fontColor": "#ff0000",
+        "backgroundColor": "rgba(255,255,255,0.8)",
+        "borderColor": "#ff0000",
+        "borderWidth": 1
+      },
+      {
+        "type": "verticalLine",
+        "x": 50,
+        "color": "#00aa00",
+        "lineStyle": "dashed",
+        "lineWidth": 1.5,
+        "label": "50Hz工频"
+      }
+    ],
+    "conclusions": [
+      "发现在1200RPM时24.75Hz处有明显峰值，对应电机1X转频",
+      "在2800RPM时46.7Hz处发现明显峰值，可能是外圈轴承故障",
+      "随着转速增加，振动幅值总体呈上升趋势"
+    ],
+    "recommendations": [
+      "建议进一步对轴承进行针对性检测",
+      "计划在下次停机维修时更换轴承",
+      "增加设备巡检频次，密切监控振动水平变化"
+    ]
+  },
+  "dataSources": [
+    {
+      "type": "csv",
+      "path": "data/waterfall_data.csv",
+      "hasHeader": true,
+      "columnMapping": {
+        "时间": "time",
+        "RPM": "rpm",
+        "频率": "frequency",
+        "幅值": "amplitude"
+      }
+    }
+  ],
+  "footer": {
+    "companyName": "智能设备诊断中心",
+    "companyLogo": "assets/logo.png",
+    "contactInfo": "联系电话: 010-12345678",
+    "pageNumbers": true,
+    "creationDate": true
+  }
+}

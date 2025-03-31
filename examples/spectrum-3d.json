@@ -1,0 +1,86 @@
+{
+  "reportType": "spectrum-report",
+  "outputPath": "./output/spectrum-3d-analysis.html",
+  "template": "templates/spectrum-3d.html",
+  "outputFormat": "html",
+  "parameters": {
+    "title": "3D频谱分析报告",
+    "description": "此报告展示了设备振动的3D频谱分析结果，用于高级状态诊断",
+    "testInfo": {
+      "testDate": "2025-03-10",
+      "testEngineer": "张诊断师",
+      "testLocation": "风机叶轮",
+      "equipmentModel": "风机系统FT-2000",
+      "samplingRate": "51.2 kHz",
+      "spectralLines": "6400"
+    },
+    "analysisParameters": {
+      "frequencyRange": [0, 5000],
+      "amplitudeUnit": "加速度 (g²/Hz)",
+      "windowType": "Hanning",
+      "averageType": "线性",
+      "averageCount": 8,
+      "overlapPercent": 50
+    },
+    "chartConfig": {
+      "surface3D": {
+        "title": "3D频谱图",
+        "xLabel": "频率 (Hz)",
+        "yLabel": "时间 (秒)",
+        "zLabel": "幅值 (g²/Hz)",
+        "colorScheme": "thermal",
+        "colorOpacity": 0.85,
+        "meshDensity": {
+          "x": 50,
+          "y": 50
+        },
+        "lighting": {
+          "ambient": 0.7,
+          "diffuse": 0.8,
+          "specular": 0.3
+        },
+        "viewAngles": {
+          "azimuth": 135,
+          "elevation": 30
+        },
+        "interactiveControls": true,
+        "showAxes": true,
+        "showGrid": true,
+        "showColorbar": true
+      },
+      "contourPlot": {
+        "title": "频谱等高线图",
+        "xLabel": "频率 (Hz)",
+        "yLabel": "时间 (秒)",
+        "colorScheme": "jet",
+        "contourLevels": 15,
+        "showColorbar": true,
+        "interpolation": "bicubic"
+      }
+    },
+    "frequencyMarkers": [
+      {"freq": 24.5, "label": "1X转速", "color": "#FF0000"},
+      {"freq": 49.0, "label": "2X转速", "color": "#FFA500"},
+      {"freq": 73.5, "label": "3X转速", "color": "#FFFF00"},
+      {"freq": 820.0, "label": "轴承特征频率", "color": "#0000FF"}
+    ],
+    "resonanceAnalysis": {
+      "enabled": true,
+      "naturalFrequencies": [
+        {"freq": 210.5, "damping": 0.05, "description": "轴系一阶共振"},
+        {"freq": 450.8, "damping": 0.04, "description": "轴系二阶共振"}
+      ],
+      "showInTable": true
+    }
+  },
+  "dataSources": [
+    {
+      "id": "spectrum3dData",
+      "type": "csv",
+      "config": {
+        "path": "examples/data/3d_spectrum_data.csv",
+        "delimiter": ","
+      }
+    }
+  ]
+}

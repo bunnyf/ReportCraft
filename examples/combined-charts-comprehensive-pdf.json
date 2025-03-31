@@ -1,0 +1,152 @@
+{
+  "reportType": "spectrum-report",
+  "title": "设备健康综合分析仪表板-PDF版",
+  "description": "集成多种图表类型的综合分析仪表板，用于设备健康评估和故障诊断，PDF输出",
+  "outputPath": "../output/combined-charts-comprehensive.pdf",
+  "outputFormat": "pdf",
+  "template": "../templates/spectrum.html",
+  "parameters": {
+    "title": "设备健康综合分析报告",
+    "subtitle": "集成多维数据的状态评估与故障分析",
+    "equipmentInfo": {
+      "name": "注塑机组#A2-35",
+      "location": "生产线2区",
+      "serialNumber": "IMM-2025-0189",
+      "manufacturer": "精密机械有限公司"
+    },
+    "analysisInfo": {
+      "analyst": "李工",
+      "date": "2025-03-20",
+      "period": "2025年第一季度",
+      "methodology": "多参数综合评估方法V2.3"
+    },
+    "chartOptions": {
+      "gridLayout": "dashboard",
+      "colorTheme": "professional",
+      "backgroundColor": "#f9f9f9",
+      "borderRadius": 8,
+      "shadows": true,
+      "responsive": true,
+      "chartSpacing": 16,
+      "legendPosition": "right",
+      "charts": [
+        {
+          "id": "healthGauge",
+          "type": "gauge",
+          "title": "设备健康指数",
+          "position": {"row": 1, "col": 1, "width": 1, "height": 1},
+          "options": {
+            "min": 0,
+            "max": 100,
+            "value": 78,
+            "zones": [
+              {"min": 0, "max": 40, "color": "#ff4d4d"},
+              {"min": 40, "max": 70, "color": "#ffcc00"},
+              {"min": 70, "max": 100, "color": "#4caf50"}
+            ],
+            "unit": "%",
+            "needleColor": "#2c3e50",
+            "tickInterval": 10
+          }
+        },
+        {
+          "id": "parameterTrend",
+          "type": "line",
+          "title": "关键参数趋势",
+          "position": {"row": 1, "col": 2, "width": 2, "height": 1},
+          "options": {
+            "xAxis": {"title": "日期", "type": "datetime"},
+            "yAxis": {"title": "参数值", "min": 0},
+            "series": [
+              {
+                "name": "温度",
+                "color": "#ff7f0e",
+                "data": [
+                  [1735664400000, 85], [1735750800000, 82], [1735837200000, 88], 
+                  [1735923600000, 90], [1736010000000, 86], [1736096400000, 85],
+                  [1736182800000, 89]
+                ]
+              },
+              {
+                "name": "压力",
+                "color": "#2ca02c",
+                "data": [
+                  [1735664400000, 45], [1735750800000, 43], [1735837200000, 47], 
+                  [1735923600000, 51], [1736010000000, 48], [1736096400000, 45],
+                  [1736182800000, 44]
+                ]
+              },
+              {
+                "name": "振动",
+                "color": "#d62728",
+                "data": [
+                  [1735664400000, 2.1], [1735750800000, 2.3], [1735837200000, 2.0], 
+                  [1735923600000, 3.5], [1736010000000, 2.8], [1736096400000, 2.4],
+                  [1736182800000, 2.2]
+                ]
+              }
+            ],
+            "legendEnabled": true,
+            "gridLines": true
+          }
+        },
+        {
+          "id": "faultDistribution",
+          "type": "pie",
+          "title": "故障类型分布",
+          "position": {"row": 2, "col": 1, "width": 1, "height": 1},
+          "options": {
+            "data": [
+              {"name": "电气故障", "value": 42, "color": "#3366cc"},
+              {"name": "机械磨损", "value": 28, "color": "#dc3912"},
+              {"name": "液压系统", "value": 18, "color": "#ff9900"},
+              {"name": "控制系统", "value": 12, "color": "#109618"}
+            ],
+            "showLabels": true,
+            "showPercentage": true,
+            "innerRadius": "40%",
+            "borderWidth": 1,
+            "borderColor": "#ffffff"
+          }
+        },
+        {
+          "id": "tempDistribution",
+          "type": "heatmap",
+          "title": "温度分布热图",
+          "position": {"row": 2, "col": 2, "width": 2, "height": 1},
+          "options": {
+            "data": [
+              [0, 0, 65], [0, 1, 70], [0, 2, 75], [0, 3, 79], [0, 4, 82],
+              [1, 0, 68], [1, 1, 72], [1, 2, 80], [1, 3, 85], [1, 4, 88],
+              [2, 0, 70], [2, 1, 75], [2, 2, 82], [2, 3, 89], [2, 4, 92],
+              [3, 0, 68], [3, 1, 71], [3, 2, 78], [3, 3, 82], [3, 4, 86]
+            ],
+            "xAxis": {"categories": ["区域A", "区域B", "区域C", "区域D", "区域E"]},
+            "yAxis": {"categories": ["底部", "中下部", "中上部", "顶部"]},
+            "colorRange": {
+              "min": 65,
+              "max": 95,
+              "stops": [
+                [0.0, "#91c8e4"],
+                [0.5, "#ffeb84"],
+                [1.0, "#ff7373"]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "statusSummary": {
+      "overview": "设备整体状态良好，健康指数78%，处于正常运行区间",
+      "warnings": [
+        "3月15日检测到振动值暂时升高至3.5mm/s，超过警戒值3.0mm/s",
+        "电气故障占比较高(42%)，建议加强电气系统预防性维护"
+      ],
+      "recommendations": [
+        "建议按照计划在4月初进行一次预防性维护",
+        "加强对振动值的实时监测，设置自动报警阈值",
+        "电气系统关键部件更换周期从6个月调整为4个月"
+      ]
+    }
+  }
+}

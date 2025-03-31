@@ -1,0 +1,143 @@
+{
+  "reportType": "dashboard-report",
+  "outputPath": "./output/interactive-dashboard.html",
+  "template": "templates/interactive-dashboard.html",
+  "outputFormat": "html",
+  "parameters": {
+    "title": "设备健康监测交互式仪表盘",
+    "description": "此仪表盘提供设备健康状态的实时监控和历史趋势分析",
+    "refreshRate": 60,
+    "lastUpdated": "2025-03-20 14:30:00",
+    "dashboardLayout": {
+      "responsive": true,
+      "gridType": "fluid",
+      "panels": [
+        {"id": "healthOverview", "title": "设备健康概览", "width": 12, "height": 2, "type": "summary"},
+        {"id": "vibrationTrend", "title": "振动趋势", "width": 6, "height": 4, "type": "chart"},
+        {"id": "temperatureTrend", "title": "温度趋势", "width": 6, "height": 4, "type": "chart"},
+        {"id": "faultAnalysis", "title": "故障诊断", "width": 12, "height": 3, "type": "table"},
+        {"id": "spectrumAnalysis", "title": "频谱分析", "width": 12, "height": 6, "type": "chart"}
+      ]
+    },
+    "interactivity": {
+      "enableTimeRangeSelection": true,
+      "defaultTimeRange": "24h",
+      "availableTimeRanges": ["1h", "6h", "24h", "7d", "30d", "custom"],
+      "enableDataFiltering": true,
+      "enableDataExport": true,
+      "enablePrintView": true,
+      "enableAlarmSettings": true
+    },
+    "panels": {
+      "healthOverview": {
+        "type": "statusSummary",
+        "items": [
+          {"id": "overallHealth", "title": "总体健康度", "type": "gauge", "min": 0, "max": 100, "thresholds": [40, 70, 90]},
+          {"id": "activeAlarms", "title": "当前告警", "type": "counter", "severity": ["critical", "warning", "info"]},
+          {"id": "uptime", "title": "运行时间", "type": "text", "format": "duration"},
+          {"id": "efficiency", "title": "运行效率", "type": "percentage", "decimals": 1},
+          {"id": "nextMaintenance", "title": "下次维护", "type": "text", "format": "date"}
+        ]
+      },
+      "vibrationTrend": {
+        "type": "timeSeriesChart",
+        "dataSource": "vibrationData",
+        "metrics": [
+          {"id": "rmsVelocity", "name": "RMS速度", "unit": "mm/s", "color": "#1E90FF"},
+          {"id": "peakAcceleration", "name": "峰值加速度", "unit": "g", "color": "#FF4500"}
+        ],
+        "yAxis": {"autoScale": true, "showAlarmLevels": true},
+        "enableZoom": true,
+        "showDataPoints": true,
+        "annotations": {"enable": true, "editable": true}
+      },
+      "temperatureTrend": {
+        "type": "timeSeriesChart",
+        "dataSource": "temperatureData",
+        "metrics": [
+          {"id": "bearing1Temp", "name": "轴承1温度", "unit": "°C", "color": "#FF0000"},
+          {"id": "bearing2Temp", "name": "轴承2温度", "unit": "°C", "color": "#FF8C00"},
+          {"id": "motorTemp", "name": "电机温度", "unit": "°C", "color": "#FFD700"},
+          {"id": "ambientTemp", "name": "环境温度", "unit": "°C", "color": "#32CD32"}
+        ],
+        "yAxis": {"min": 0, "max": 100, "showThresholds": true},
+        "enableZoom": true,
+        "showDataPoints": true
+      },
+      "faultAnalysis": {
+        "type": "diagnosticTable",
+        "dataSource": "faultDiagnostics",
+        "columns": [
+          {"id": "timestamp", "name": "时间", "type": "datetime"},
+          {"id": "component", "name": "部件", "type": "text"},
+          {"id": "faultType", "name": "故障类型", "type": "text"},
+          {"id": "severity", "name": "严重程度", "type": "severity"},
+          {"id": "confidence", "name": "置信度", "type": "percentage"},
+          {"id": "recommendation", "name": "建议措施", "type": "text"}
+        ],
+        "enableSorting": true,
+        "enableFiltering": true,
+        "pagination": {"pageSize": 10, "pageSizeOptions": [5, 10, 20, 50]},
+        "expandableRows": true,
+        "expandedContent": {"type": "details", "fields": ["description", "affectedParameters", "diagnosticRules"]}
+      },
+      "spectrumAnalysis": {
+        "type": "spectrumChart",
+        "dataSource": "spectrumData",
+        "controls": {
+          "enableTimeSelection": true,
+          "enableChannelSelection": true,
+          "enableViewMode": true,
+          "viewModes": ["spectrum", "waterfall", "spectrogram"],
+          "enableFrequencyBands": true,
+          "frequencyBands": [
+            {"name": "低频", "min": 0, "max": 100, "color": "#3366CC"},
+            {"name": "中频", "min": 100, "max": 1000, "color": "#FF9900"},
+            {"name": "高频", "min": 1000, "max": 10000, "color": "#DC3912"}
+          ]
+        },
+        "markers": {
+          "enableMarkers": true,
+          "predefinedMarkers": [
+            {"name": "1X", "frequency": "$rpm/60", "harmonics": 5, "color": "#FF0000"},
+            {"name": "BPFI", "frequency": "$rpm/60*4.93", "color": "#0000FF"},
+            {"name": "BPFO", "frequency": "$rpm/60*3.07", "color": "#00FF00"}
+          ]
+        },
+        "interactions": {
+          "enableCursor": true,
+          "enablePeakDetection": true,
+          "enableHarmonicCursors": true,
+          "enableSidebandCursors": true,
+          "enableScreenshot": true
+        }
+      }
+    },
+    "alarmSettings": {
+      "enableAlarms": true,
+      "alarmLevels": {
+        "vibration": [
+          {"level": "info", "threshold": 2.8, "unit": "mm/s", "action": "记录"},
+          {"level": "warning", "threshold": 4.5, "unit": "mm/s", "action": "通知"},
+          {"level": "critical", "threshold": 7.1, "unit": "mm/s", "action": "告警"}
+        ],
+        "temperature": [
+          {"level": "info", "threshold": 65, "unit": "°C", "action": "记录"},
+          {"level": "warning", "threshold": 75, "unit": "°C", "action": "通知"},
+          {"level": "critical", "threshold": 85, "unit": "°C", "action": "告警"}
+        ]
+      },
+      "notificationChannels": ["email", "sms", "app"],
+      "alarmHistory": {"retention": 90, "exportable": true}
+    }
+  },
+  "dataSources": [
+    {
+      "id": "dashboardData",
+      "type": "json",
+      "config": {
+        "path": "examples/data/dashboard_data.json"
+      }
+    }
+  ]
+}

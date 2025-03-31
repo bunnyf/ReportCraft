@@ -1,0 +1,188 @@
+{
+  "reportType": "spectrum-report",
+  "title": "设备健康综合分析仪表板",
+  "description": "集成多种图表类型的综合分析仪表板，用于设备健康评估和故障诊断",
+  "outputPath": "../output/combined-charts-comprehensive.html",
+  "outputFormat": "html",
+  "template": "../templates/spectrum.html",
+  "parameters": {
+    "title": "设备健康综合分析报告",
+    "subtitle": "集成多维数据的状态评估与故障分析",
+    "equipmentInfo": {
+      "name": "压缩机组#3",
+      "location": "2号车间",
+      "serialNumber": "CM-2025-0127",
+      "manufacturer": "高压机械制造厂"
+    },
+    "analysisInfo": {
+      "analyst": "李工",
+      "date": "2025-03-20",
+      "reportPeriod": "2025-01-01至2025-03-15",
+      "dataPoints": "1,458",
+      "dataSource": "在线监测系统"
+    },
+    "sections": [
+      {
+        "title": "健康状态概览",
+        "charts": [
+          {
+            "type": "gauge",
+            "title": "设备健康指数",
+            "dataField": "healthIndex",
+            "width": "40%",
+            "height": "220px",
+            "thresholds": [
+              {"value": 0, "color": "#ff0000"},
+              {"value": 50, "color": "#ffaa00"},
+              {"value": 80, "color": "#00aa00"}
+            ],
+            "minValue": 0,
+            "maxValue": 100,
+            "units": "%",
+            "showValue": true,
+            "valueSize": 24,
+            "animation": true
+          },
+          {
+            "type": "bar",
+            "title": "故障概率分布",
+            "dataField": "faultProbability",
+            "width": "60%",
+            "height": "220px",
+            "xField": "component",
+            "yField": "probability",
+            "xAxisTitle": "部件",
+            "yAxisTitle": "故障概率 (%)",
+            "colors": ["#ff5733", "#33bbff", "#ffbb33", "#33ff57"],
+            "showValues": true,
+            "showGrid": true,
+            "thresholds": [
+              {"value": 30, "color": "#dddddd", "lineStyle": "dashed"},
+              {"value": 70, "color": "#ff0000", "lineStyle": "dashed"}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "参数趋势分析",
+        "charts": [
+          {
+            "type": "line",
+            "title": "关键参数变化趋势",
+            "dataField": "parameterTrends",
+            "width": "100%",
+            "height": "300px",
+            "xField": "timestamps",
+            "xAxisTitle": "时间",
+            "yAxisTitle": "",
+            "series": [
+              {"field": "温度", "name": "温度 (°C)", "color": "#ff5733", "lineWidth": 2, "yAxis": 0},
+              {"field": "振动", "name": "振动 (mm/s)", "color": "#337dff", "lineWidth": 2, "yAxis": 1},
+              {"field": "转速", "name": "转速 (RPM)", "color": "#33ff57", "lineWidth": 2, "yAxis": 2}
+            ],
+            "yAxes": [
+              {"title": "温度 (°C)", "min": 0, "position": "left", "gridLines": true},
+              {"title": "振动 (mm/s)", "min": 0, "position": "right", "gridLines": false},
+              {"title": "转速 (RPM)", "min": 0, "position": "right", "offset": 60, "gridLines": false}
+            ],
+            "markers": true,
+            "tooltip": true,
+            "showGrid": true,
+            "enableZoom": true,
+            "smoothLines": true,
+            "annotations": [
+              {"x": "2025-02-01T00:00:00Z", "text": "维护", "textPosition": "top", "lineStyle": "dashed", "color": "#aa55ff"},
+              {"y": 70, "yAxis": 0, "text": "温度预警", "textPosition": "left", "lineStyle": "dotted", "color": "#ff0000"}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "故障分析",
+        "charts": [
+          {
+            "type": "pie",
+            "title": "故障类型分布",
+            "dataField": "faultTypeDistribution",
+            "width": "50%",
+            "height": "250px",
+            "nameField": "type",
+            "valueField": "value",
+            "showPercentages": true,
+            "showLegend": true,
+            "donut": true,
+            "donutSize": 0.5,
+            "colors": ["#9c27b0", "#2196f3", "#ff9800", "#4caf50", "#f44336"],
+            "showTooltip": true,
+            "animations": true
+          },
+          {
+            "type": "bar",
+            "title": "频谱特征分析",
+            "dataField": "spectrumData",
+            "width": "50%",
+            "height": "250px",
+            "xField": "频率",
+            "yField": "幅值",
+            "xAxisTitle": "频率 (Hz)",
+            "yAxisTitle": "幅值 (mm/s)",
+            "color": "#2196f3",
+            "showGrid": true,
+            "markers": [
+              {"x": 24.5, "color": "#ff0000", "size": 8, "label": "1X"},
+              {"x": 49, "color": "#ff0000", "size": 8, "label": "2X"}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "温度分布",
+        "charts": [
+          {
+            "type": "heatmap",
+            "title": "表面温度分布",
+            "dataField": "temperatureMap",
+            "width": "100%",
+            "height": "280px",
+            "xField": "x",
+            "yField": "y",
+            "zField": "temperature",
+            "colorScale": "RdYlBu_r",
+            "showLabels": true,
+            "reverseScale": true,
+            "smoothing": true,
+            "showScale": true,
+            "annotations": [
+              {"x": 30, "y": 30, "text": "最高温度点", "textPosition": "right"}
+            ]
+          }
+        ]
+      }
+    ],
+    "conclusions": [
+      "设备总体健康状况良好，健康指数78.5%",
+      "轴承故障概率较高，建议进行针对性监测",
+      "发现1X和2X转频成分明显，表明可能存在不平衡和不对中",
+      "设备表面温度分布不均匀，中心区域温度较高"
+    ],
+    "recommendations": [
+      "计划下一次定期维护时进行轴承检查",
+      "对设备进行动平衡和对中校正",
+      "优化润滑系统，降低运行温度",
+      "增加高温区域的散热措施"
+    ]
+  },
+  "dataSources": [
+    {
+      "type": "json",
+      "path": "data/combined_charts_data.json"
+    }
+  ],
+  "footer": {
+    "companyName": "设备健康管理中心",
+    "companyLogo": "assets/logo.png",
+    "contactInfo": "技术支持: support@example.com",
+    "pageNumbers": true,
+    "creationDate": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "title": "设备性能对比分析报告",
+  "reportType": "spectrum-report",
+  "dataSource": {
+    "type": "csv",
+    "path": "./examples/data/equipment_comparison_data.csv"
+  },
+  "charts": [
+    {
+      "type": "bar",
+      "title": "设备效率与健康指数对比",
+      "xAxis": "设备ID",
+      "yAxis": ["效率", "健康指数"],
+      "options": {
+        "showLegend": true,
+        "showGrid": true,
+        "barWidth": 0.8,
+        "grouping": "grouped",
+        "colors": ["#4CAF50", "#2196F3"]
+      }
+    },
+    {
+      "type": "scatter",
+      "title": "故障次数与维护成本关系",
+      "xAxis": "故障次数",
+      "yAxis": "维护成本",
+      "options": {
+        "showLegend": false,
+        "showGrid": true,
+        "markerSize": 10,
+        "markerColor": "#FF5722",
+        "showLabels": true,
+        "labelField": "设备ID"
+      }
+    }
+  ],
+  "analysis": {
+    "comparisons": true,
+    "rankings": true,
+    "groupBy": "型号",
+    "conclusions": true,
+    "recommendations": true
+  },
+  "outputFormat": "xlsx",
+  "outputPath": "./output/equipment-comparison.xlsx"
+}

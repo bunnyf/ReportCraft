@@ -1,0 +1,35 @@
+{
+  "title": "设备健康趋势分析报告",
+  "reportType": "spectrum-report",
+  "dataSource": {
+    "type": "csv",
+    "path": "./examples/data/equipment_health_data.csv"
+  },
+  "charts": [
+    {
+      "type": "line",
+      "title": "设备健康指标趋势",
+      "xAxis": "日期",
+      "yAxis": ["温度", "振动", "噪音", "健康指数"],
+      "options": {
+        "showLegend": true,
+        "showGrid": true,
+        "lineWidth": 2,
+        "markerSize": 5,
+        "colors": ["#FF5733", "#33FF57", "#3357FF", "#F033FF"]
+      }
+    }
+  ],
+  "analysis": {
+    "trends": true,
+    "thresholds": {
+      "温度": 50,
+      "振动": 2.5,
+      "噪音": 90,
+      "健康指数": 0.6
+    },
+    "conclusions": true
+  },
+  "outputFormat": "xlsx",
+  "outputPath": "./output/equipment-health-trend.xlsx"
+}
